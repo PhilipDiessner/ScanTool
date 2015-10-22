@@ -1,0 +1,29 @@
+library LesHouches.so
+library MadGraphReader.so
+
+cd /Herwig/EventHandlers
+create ThePEG::MadGraphReader myReader
+create ThePEG::Cuts nocuts
+set myReader:Cuts nocuts
+
+# set myReader:PDFA /Herwig/Partons/NoPDF
+# set myReader:PDFB /Herwig/Partons/NoPDF
+
+create ThePEG::LesHouchesEventHandler myLesHouchesHandler
+set myLesHouchesHandler:CascadeHandler /Herwig/Shower/ShowerHandler
+set myLesHouchesHandler:HadronizationHandler /Herwig/Hadronization/ClusterHadHandler
+set myLesHouchesHandler:DecayHandler /Herwig/Decays/DecayHandler
+set myLesHouchesHandler:PartonExtractor /Herwig/Partons/QCDExtractor
+insert myLesHouchesHandler:PreCascadeHandlers 0 /Herwig/NewPhysics/DecayHandler
+insert myLesHouchesHandler:PostSubProcessHandlers 0 /Herwig/QEDRadiation/QEDRadiationHandler
+
+insert myLesHouchesHandler:LesHouchesReaders 0 myReader
+
+cd /Herwig/Generators
+cp LHCGenerator myLesHouchesGenerator
+set myLesHouchesGenerator:EventHandler /Herwig/EventHandlers/myLesHouchesHandler
+
+insert myLesHouchesGenerator:AnalysisHandlers[0] /Herwig/Analysis/HepMCFile
+set /Herwig/Analysis/HepMCFile:Format GenEvent
+set /Herwig/Analysis/HepMCFile:Units GeV_mm
+

@@ -1,0 +1,126 @@
+cd /Herwig/NewPhysics
+
+####################################
+#
+# Modify the required process here
+#
+####################################
+set HPConstructor:IncludeEW Yes
+
+insert HPConstructor:Incoming 0 /Herwig/Particles/g
+insert HPConstructor:Incoming 1 /Herwig/Particles/u
+insert HPConstructor:Incoming 2 /Herwig/Particles/ubar
+insert HPConstructor:Incoming 3 /Herwig/Particles/d
+insert HPConstructor:Incoming 4 /Herwig/Particles/dbar
+insert HPConstructor:Incoming 5 /Herwig/Particles/c
+insert HPConstructor:Incoming 6 /Herwig/Particles/cbar
+insert HPConstructor:Incoming 7 /Herwig/Particles/s
+insert HPConstructor:Incoming 8 /Herwig/Particles/sbar
+insert HPConstructor:Incoming 9 /Herwig/Particles/b
+insert HPConstructor:Incoming 10 /Herwig/Particles/bbar
+
+
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/go
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/gobar
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/N1
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/N1bar
+insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/N2
+insert HPConstructor:Outgoing 1 /Herwig/MRSSM/Particles/N2bar
+insert HPConstructor:Outgoing 2 /Herwig/MRSSM/Particles/N3
+insert HPConstructor:Outgoing 3 /Herwig/MRSSM/Particles/N3bar
+insert HPConstructor:Outgoing 4 /Herwig/MRSSM/Particles/N4
+insert HPConstructor:Outgoing 5 /Herwig/MRSSM/Particles/N4bar
+insert HPConstructor:Outgoing 6 /Herwig/MRSSM/Particles/CA1
+insert HPConstructor:Outgoing 7 /Herwig/MRSSM/Particles/CA1bar
+insert HPConstructor:Outgoing 8 /Herwig/MRSSM/Particles/CA2
+insert HPConstructor:Outgoing 9 /Herwig/MRSSM/Particles/CA2bar
+insert HPConstructor:Outgoing 10 /Herwig/MRSSM/Particles/CB1
+insert HPConstructor:Outgoing 11 /Herwig/MRSSM/Particles/CB1bar
+insert HPConstructor:Outgoing 12 /Herwig/MRSSM/Particles/CB2
+insert HPConstructor:Outgoing 13 /Herwig/MRSSM/Particles/CB2bar
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/SO
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/SOc
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/sd1
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/sd1c
+#  insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/sd2
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/sd2c
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/sd3
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/sd3c
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/sd4
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/sd4c
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/sd5
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/sd5c
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/sd6
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/sd6c
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/sv1
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/sv1c
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/sv2
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/sv2c
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/sv3
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/sv3c
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/su1
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/su1c
+#  insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/su2
+#  insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/su2c
+#  insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/su3
+#  insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/su3c
+#  insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/su4
+#  insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/su4c
+#  insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/su5
+#  insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/su5c
+#  insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/su6
+#  insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/su6c
+insert HPConstructor:Outgoing 14 /Herwig/MRSSM/Particles/se1
+insert HPConstructor:Outgoing 15 /Herwig/MRSSM/Particles/se1c
+insert HPConstructor:Outgoing 16 /Herwig/MRSSM/Particles/se2
+insert HPConstructor:Outgoing 17 /Herwig/MRSSM/Particles/se2c
+insert HPConstructor:Outgoing 18 /Herwig/MRSSM/Particles/se3
+insert HPConstructor:Outgoing 19 /Herwig/MRSSM/Particles/se3c
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/se4
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/se4c
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/se5
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/se5c
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/se6
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/se6c
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/h1
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/h2
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/h3
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/h4
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/Ah2
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/Ah3
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/Ah4
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/R01
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/R01c
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/R02
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/R02c
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/Hm2
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/Hm2c
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/Hm3
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/Hm3c
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/Hm4
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/Hm4c
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/Rm1
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/Rm1c
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/Rm2
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/Rm2c
+
+set HPConstructor:Processes TwoParticleInclusive
+
+# Intrinsic pT tune extrapolated to LHC energy
+set /Herwig/Shower/Evolver:IntrinsicPtGaussian 2.2*GeV
+
+# disable default cuts if required
+# cd /Herwig/EventHandlers
+# create ThePEG::Cuts   /Herwig/Cuts/NoCuts
+# set /Herwig/EventHandlers/LHCHandler:Cuts /Herwig/Cuts/NoCuts
+
+# Other parameters for run
+cd /Herwig/Generators
+set LHCGenerator:DebugLevel 0
+set LHCGenerator:EventHandler:StatLevel Full
+set LHCGenerator:PrintEvent 100
+set LHCGenerator:EventHandler:LuminosityFunction:Energy 8000.0
+
+insert LHCGenerator:AnalysisHandlers[0] /Herwig/Analysis/HepMCFile
+set /Herwig/Analysis/HepMCFile:Format GenEvent
+set /Herwig/Analysis/HepMCFile:Units GeV_mm
