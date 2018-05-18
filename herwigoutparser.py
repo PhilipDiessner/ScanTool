@@ -1,6 +1,5 @@
 import re
-
-fi = "/home/diessner/raid2/MRSSMscans/lhc_bmtest/3/lhc.out"
+from HEPpaths import fi
 
 # strings
 

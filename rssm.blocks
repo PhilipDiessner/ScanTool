@@ -1,0 +1,71 @@
+block drsqmix
+        1       1       1.0           # rZRD11
+        1       2       0.0           # rZRD12
+        1       3       0.0           # rZRD13
+        2       1       0.0           # rZRD21
+        2       2       1.0           # rZRD22
+        2       3       0.0           # rZRD23
+        3       1       0.0           # rZRD31
+        3       2       0.0           # rZRD32
+        3       3       1.0           # rZRD33
+block ursqmix
+        1       1       1.0           # ZRU11
+        1       2       0.0           # ZRU12
+        1       3       0.0           # ZRU13
+        2       1       0.0           # ZRU21
+        2       2       1.0           # ZRU22
+        2       3       0.0           # ZRU23
+        3       1       0.0           # ZRU31
+        3       2       0.0           # ZRU32
+        3       3       1.0           # ZRU33
+block srelmix
+        1       1       1.0           # ZRE11
+        1       2       0.0           # ZRE12
+        1       3       0.0           # ZRE13
+        2       1       0.0           # ZRE21
+        2       2       1.0           # ZRE22
+        2       3       0.0           # ZRE23
+        3       1       0.0           # ZRE31
+        3       2       0.0           # ZRE32
+        3       3       1.0           # ZRE33
+block imdrsqmix
+        1       1       0.0           # iZRD11
+        1       2       0.0           # iZRD12
+        1       3       0.0           # iZRD13
+        2       1       0.0           # iZRD21
+        2       2       0.0           # iZRD22
+        2       3       0.0           # iZRD23
+        3       1       0.0           # iZRD31
+        3       2       0.0           # iZRD32
+        3       3       0.0           # iZRD33
+block slelmix
+        1       1       1.0           # ZLE11
+        1       2       0.0           # ZLE12
+        1       3       0.0           # ZLE13
+        2       1       0.0           # ZLE21
+        2       2       1.0           # ZLE22
+        2       3       0.0           # ZLE23
+        3       1       0.0           # ZLE31
+        3       2       0.0           # ZLE32
+        3       3       1.0           # ZLE33
+
+block dlsqmix
+        1       1       1.0           # ZLD11
+        1       2       0.0           # ZLD12
+        1       3       0.0           # ZLD13
+        2       1       0.0           # ZLD21
+        2       2       1.0           # ZLD22
+        2       3       0.0           # ZLD23
+        3       1       0.0           # ZLD31
+        3       2       0.0           # ZLD32
+        3       3       1.0           # ZLD33
+block ulsqmix
+        1       1       1.0           # ZLU11
+        1       2       0.0           # ZLU12
+        1       3       0.0           # ZLU13
+        2       1       0.0           # ZLU21
+        2       2       1.0           # ZLU22
+        2       3       0.0           # ZLU23
+        3       1       0.0           # ZLU31
+        3       2       0.0           # ZLU32
+        3       3       1.0           # ZLU33

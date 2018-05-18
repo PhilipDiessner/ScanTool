@@ -2,7 +2,6 @@ import sqlite3
 import itertools as it
 import os
 import os.path as osp
-import numpy as np
 import copy
 
 ###
@@ -198,6 +197,6 @@ def changemultiparameter(param,newpar,oldfile):
 
 def changeSLHAwrapper(changing,par,newval):
     def fun(i,scandir):
-        changeSLHA(osp.join(scandir,ident_to_path(i),i+".SLHA.in"),changing,par,newval)
+        changeSLHA(osp.join(scandir,ident_to_path(i),str(i)+".SLHA.in"),changing,par,newval)
     return fun
 

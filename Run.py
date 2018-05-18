@@ -7,6 +7,7 @@ import Init
 import SLHA_extract_values as SLHA
 from functools import partial
 
+class KeyboardInterruptError(Exception): pass
 ##
 # test and delete unnecessary stuff
 ##
@@ -27,7 +28,7 @@ def run_on_dir(scandir, db=None):
     """
     wrapper to produce function that will run a function on directories in scandir
     with the a possible conntected sqlite3 database db
-    not that the function generated runs the functions with two arguments
+    note that the function generated runs the functions with two arguments
     i from the method listing and scandir from the generating function
     and a possible third argument db, given as keyword, if the database should be forwarded
     this also decides if function will be possibly run in parallel or not
@@ -62,7 +63,14 @@ def run_on_dir(scandir, db=None):
                     # if dillin:
                     #     apply_async(pool, fun, (i,scandir,))
                     # else:
-                    pool.apply_async(fun,(i,scandir,)) #.get(9999999)
+                    try:
+                        pool.apply_async(fun,(i,scandir,)) #.get(9999999)
+                    except KeyboardInterrupt:
+                        print 'got ^C while pool mapping, terminating the pool'
+                        pool.terminate()
+                    except Exception, e:
+                        print 'got exception: %r, terminating the pool' % (e,)
+                        pool.terminate()
                 else:
                     fun(i, scandir)
             except OSError:
@@ -80,7 +88,7 @@ def run_on_dir(scandir, db=None):
 def partial_runwrapper(toexecute,i,scandir):
     i = str(i)
     cwd = osp.join(scandir,Init.ident_to_path(i))
-    execute = ['nice','-n','2'] + [x.format(i,scandir) for x in toexecute]
+    execute = ['nice','-n','10'] + [x.format(i,scandir) for x in toexecute]
     print i
     try:
         out = spr.check_output(execute,
@@ -88,27 +96,33 @@ def partial_runwrapper(toexecute,i,scandir):
         return out
     except spr.CalledProcessError:
         print "run: s.t. wrong for " + i
-        return "Error"   
+        return "Error"
+    except KeyboardInterrupt:
+        raise KeyboardInterruptError()
         
 def runwrapper(toexecute,cwd):
     """
     executes toexecute with niceness
     """
-    execute = ['nice','-n','2'] + list(toexecute)
-    # print execute, cwd
+    execute = ['nice','-n','10'] + list(toexecute)
+    #print execute, cwd
+    
     try:
         out = spr.check_output(execute,
                                stderr=spr.STDOUT, cwd=cwd)
         return out
     except spr.CalledProcessError:
         print "run: s.t. wrong for " + ' '.join(toexecute)
-        return "Error"  
+        return "Error"
+    except KeyboardInterrupt:
+        raise KeyboardInterruptError()
 
 def SPheno_run(sphenodir,model,input_SLHA,out_spectrum):
     """
     wrapper generating SPheno fun returning stdout
     """
     execut = "bin/SPheno"+model
+    #print input_SLHA
     return partial(partial_runwrapper,[osp.join(sphenodir, execut), 
                                 input_SLHA, out_spectrum])
 
@@ -139,7 +153,7 @@ def HS_run(hbdir, neutralhiggs, chargedhiggs, name):
     """
     execut = osp.join(hbdir,"HiggsSignals")
     return partial(partial_runwrapper,
-                   [execut, "latestresults-1.3.0-LHCinclusive", "peak", "2",  "effC", 
+                   [execut, "latestresults", "peak", "2",  "effC", 
                     str(neutralhiggs), str(chargedhiggs), name])
    
 def readfile(filename):
@@ -194,13 +208,18 @@ def write_wrapper(read_func,table,i,scandir,db):
         print i
     except IOError:
         pass
-    else: 
-        point = [int(i)]+out
-        Init.register_point(db, table, point)    
+    
+    else:
+        try:
+            point = [int(i)]+out
+            Init.register_point(db, table, point)
+        except:
+            pass
 
 def write_more_wrapper(read_func,table,i,scandir,db):
     """
-    higher order functions for all writing
+    higher order functions for all writing, expects a list of several
+    entries for one parameter point
     """
     try:
         out = read_func(i,scandir)
@@ -258,3 +277,40 @@ def adaptive_scan(param, outpar, value,func,createSLHAin,
                                 createSLHAin,param,newpar)
                 sphenofunc(i,scanpath)
     return fun
+
+#def replace_line_in_file(oldline,newline, infile):
+#    with open(infile, 'r') as input_file, open(infile+".tmp", 'w') as output_file:
+#        for line in input_file:
+#            if line.strip() == oldline:
+#                output_file.write(newline+'\n')
+#            else:
+#                output_file.write(line)
+#    os.rename(infile+".tmp",infile)
+
+def touch(fname, times=None):
+    fhandle = open(fname, 'a')
+    try:
+        os.utime(fname, times)
+    finally:
+        fhandle.close()
+
+        
+
+def run_base(running_func, scanpath, db, parallel=True,method=None,ncores=20):
+    runfunc = run_on_dir(scanpath, db=db)
+    if not method:
+        method = Init.get_allpointids(db, "points")
+    if type(running_func) in (tuple, list):
+        for func in running_func:
+            try:
+                runfunc(func, method=method, parallel=parallel, ncores=ncores)
+            except:
+                print "trouble with "+ func+ " for "+ db
+                pass
+    else:
+        try:
+            runfunc(running_func, method=method, parallel=parallel, ncores=ncores)
+        except:
+            print "trouble with "+ running_func+ " for "+ db
+            pass
+            

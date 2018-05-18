@@ -13,8 +13,316 @@ create Herwig::GenericHGGVertex /Herwig/MSSM/V_GenericHGG
 
 
 create ThePEG::ParticleData go
+# values set to 999999 are recalculated later from other model parameters
 setup go 1000021 go ${MASS_1000021_ABS} ${DECAY_1000021} ${DECAY_1000021_WCUT} ${DECAY_1000021_CTAU} 0 8 2 0
 insert /Herwig/NewPhysics/NewModel:DecayParticles 0 go
+insert /Herwig/Shower/ShowerHandler:DecayInShower 0 1000021 #  go
+create ThePEG::ParticleData N1
+# values set to 999999 are recalculated later from other model parameters
+setup N1 1000022 N1 ${MASS_1000022_ABS} ${DECAY_1000022} ${DECAY_1000022_WCUT} ${DECAY_1000022_CTAU} 0 0 2 0
+insert /Herwig/NewPhysics/NewModel:DecayParticles 0 N1
+insert /Herwig/Shower/ShowerHandler:DecayInShower 0 1000022 #  N1
+create ThePEG::ParticleData N2
+# values set to 999999 are recalculated later from other model parameters
+setup N2 1000023 N2 ${MASS_1000023_ABS} ${DECAY_1000023} ${DECAY_1000023_WCUT} ${DECAY_1000023_CTAU} 0 0 2 0
+insert /Herwig/NewPhysics/NewModel:DecayParticles 0 N2
+insert /Herwig/Shower/ShowerHandler:DecayInShower 0 1000023 #  N2
+create ThePEG::ParticleData N3
+# values set to 999999 are recalculated later from other model parameters
+setup N3 1000025 N3 ${MASS_1000025_ABS} ${DECAY_1000025} ${DECAY_1000025_WCUT} ${DECAY_1000025_CTAU} 0 0 2 0
+insert /Herwig/NewPhysics/NewModel:DecayParticles 0 N3
+insert /Herwig/Shower/ShowerHandler:DecayInShower 0 1000025 #  N3
+create ThePEG::ParticleData N4
+# values set to 999999 are recalculated later from other model parameters
+setup N4 1000035 N4 ${MASS_1000035_ABS} ${DECAY_1000035} ${DECAY_1000035_WCUT} ${DECAY_1000035_CTAU} 0 0 2 0
+insert /Herwig/NewPhysics/NewModel:DecayParticles 0 N4
+insert /Herwig/Shower/ShowerHandler:DecayInShower 0 1000035 #  N4
+create ThePEG::ParticleData C1
+# values set to 999999 are recalculated later from other model parameters
+setup C1 -1000024 C1 ${MASS_1000024_ABS} ${DECAY_1000024} ${DECAY_1000024_WCUT} ${DECAY_1000024_CTAU} -3 0 2 0
+insert /Herwig/NewPhysics/NewModel:DecayParticles 0 C1
+insert /Herwig/Shower/ShowerHandler:DecayInShower 0 1000024 #  C1
+create ThePEG::ParticleData C1bar
+# values set to 999999 are recalculated later from other model parameters
+setup C1bar 1000024 C1bar ${MASS_1000024_ABS} ${DECAY_1000024} ${DECAY_1000024_WCUT} ${DECAY_1000024_CTAU} 3 0 2 0
+makeanti C1 C1bar
+
+create ThePEG::ParticleData C2
+# values set to 999999 are recalculated later from other model parameters
+setup C2 -1000037 C2 ${MASS_1000037_ABS} ${DECAY_1000037} ${DECAY_1000037_WCUT} ${DECAY_1000037_CTAU} -3 0 2 0
+insert /Herwig/NewPhysics/NewModel:DecayParticles 0 C2
+insert /Herwig/Shower/ShowerHandler:DecayInShower 0 1000037 #  C2
+create ThePEG::ParticleData C2bar
+# values set to 999999 are recalculated later from other model parameters
+setup C2bar 1000037 C2bar ${MASS_1000037_ABS} ${DECAY_1000037} ${DECAY_1000037_WCUT} ${DECAY_1000037_CTAU} 3 0 2 0
+makeanti C2 C2bar
+
+create ThePEG::ParticleData sd1
+# values set to 999999 are recalculated later from other model parameters
+setup sd1 1000001 sd1 ${MASS_1000001_ABS} ${DECAY_1000001} ${DECAY_1000001_WCUT} ${DECAY_1000001_CTAU} -1 3 1 0
+insert /Herwig/NewPhysics/NewModel:DecayParticles 0 sd1
+insert /Herwig/Shower/ShowerHandler:DecayInShower 0 1000001 #  sd1
+create ThePEG::ParticleData sd1c
+# values set to 999999 are recalculated later from other model parameters
+setup sd1c -1000001 sd1c ${MASS_1000001_ABS} ${DECAY_1000001} ${DECAY_1000001_WCUT} ${DECAY_1000001_CTAU} 1 -3 1 0
+makeanti sd1 sd1c
+
+create ThePEG::ParticleData sd2
+# values set to 999999 are recalculated later from other model parameters
+setup sd2 1000003 sd2 ${MASS_1000003_ABS} ${DECAY_1000003} ${DECAY_1000003_WCUT} ${DECAY_1000003_CTAU} -1 3 1 0
+insert /Herwig/NewPhysics/NewModel:DecayParticles 0 sd2
+insert /Herwig/Shower/ShowerHandler:DecayInShower 0 1000003 #  sd2
+create ThePEG::ParticleData sd2c
+# values set to 999999 are recalculated later from other model parameters
+setup sd2c -1000003 sd2c ${MASS_1000003_ABS} ${DECAY_1000003} ${DECAY_1000003_WCUT} ${DECAY_1000003_CTAU} 1 -3 1 0
+makeanti sd2 sd2c
+
+create ThePEG::ParticleData sd3
+# values set to 999999 are recalculated later from other model parameters
+setup sd3 1000005 sd3 ${MASS_1000005_ABS} ${DECAY_1000005} ${DECAY_1000005_WCUT} ${DECAY_1000005_CTAU} -1 3 1 0
+insert /Herwig/NewPhysics/NewModel:DecayParticles 0 sd3
+insert /Herwig/Shower/ShowerHandler:DecayInShower 0 1000005 #  sd3
+create ThePEG::ParticleData sd3c
+# values set to 999999 are recalculated later from other model parameters
+setup sd3c -1000005 sd3c ${MASS_1000005_ABS} ${DECAY_1000005} ${DECAY_1000005_WCUT} ${DECAY_1000005_CTAU} 1 -3 1 0
+makeanti sd3 sd3c
+
+create ThePEG::ParticleData sd4
+# values set to 999999 are recalculated later from other model parameters
+setup sd4 2000001 sd4 ${MASS_2000001_ABS} ${DECAY_2000001} ${DECAY_2000001_WCUT} ${DECAY_2000001_CTAU} -1 3 1 0
+insert /Herwig/NewPhysics/NewModel:DecayParticles 0 sd4
+insert /Herwig/Shower/ShowerHandler:DecayInShower 0 2000001 #  sd4
+create ThePEG::ParticleData sd4c
+# values set to 999999 are recalculated later from other model parameters
+setup sd4c -2000001 sd4c ${MASS_2000001_ABS} ${DECAY_2000001} ${DECAY_2000001_WCUT} ${DECAY_2000001_CTAU} 1 -3 1 0
+makeanti sd4 sd4c
+
+create ThePEG::ParticleData sd5
+# values set to 999999 are recalculated later from other model parameters
+setup sd5 2000003 sd5 ${MASS_2000003_ABS} ${DECAY_2000003} ${DECAY_2000003_WCUT} ${DECAY_2000003_CTAU} -1 3 1 0
+insert /Herwig/NewPhysics/NewModel:DecayParticles 0 sd5
+insert /Herwig/Shower/ShowerHandler:DecayInShower 0 2000003 #  sd5
+create ThePEG::ParticleData sd5c
+# values set to 999999 are recalculated later from other model parameters
+setup sd5c -2000003 sd5c ${MASS_2000003_ABS} ${DECAY_2000003} ${DECAY_2000003_WCUT} ${DECAY_2000003_CTAU} 1 -3 1 0
+makeanti sd5 sd5c
+
+create ThePEG::ParticleData sd6
+# values set to 999999 are recalculated later from other model parameters
+setup sd6 2000005 sd6 ${MASS_2000005_ABS} ${DECAY_2000005} ${DECAY_2000005_WCUT} ${DECAY_2000005_CTAU} -1 3 1 0
+insert /Herwig/NewPhysics/NewModel:DecayParticles 0 sd6
+insert /Herwig/Shower/ShowerHandler:DecayInShower 0 2000005 #  sd6
+create ThePEG::ParticleData sd6c
+# values set to 999999 are recalculated later from other model parameters
+setup sd6c -2000005 sd6c ${MASS_2000005_ABS} ${DECAY_2000005} ${DECAY_2000005_WCUT} ${DECAY_2000005_CTAU} 1 -3 1 0
+makeanti sd6 sd6c
+
+create ThePEG::ParticleData sv1
+# values set to 999999 are recalculated later from other model parameters
+setup sv1 1000012 sv1 ${MASS_1000012_ABS} ${DECAY_1000012} ${DECAY_1000012_WCUT} ${DECAY_1000012_CTAU} 0 0 1 0
+insert /Herwig/NewPhysics/NewModel:DecayParticles 0 sv1
+insert /Herwig/Shower/ShowerHandler:DecayInShower 0 1000012 #  sv1
+insert /Herwig/MSSM/V_GenericHPP:Bosons 0 sv1
+insert /Herwig/MSSM/V_GenericHGG:Bosons 0 sv1
+
+create ThePEG::ParticleData sv1c
+# values set to 999999 are recalculated later from other model parameters
+setup sv1c -1000012 sv1c ${MASS_1000012_ABS} ${DECAY_1000012} ${DECAY_1000012_WCUT} ${DECAY_1000012_CTAU} 0 0 1 0
+makeanti sv1 sv1c
+
+insert /Herwig/MSSM/V_GenericHPP:Bosons 0 sv1c
+insert /Herwig/MSSM/V_GenericHGG:Bosons 0 sv1c
+
+create ThePEG::ParticleData sv2
+# values set to 999999 are recalculated later from other model parameters
+setup sv2 1000014 sv2 ${MASS_1000014_ABS} ${DECAY_1000014} ${DECAY_1000014_WCUT} ${DECAY_1000014_CTAU} 0 0 1 0
+insert /Herwig/NewPhysics/NewModel:DecayParticles 0 sv2
+insert /Herwig/Shower/ShowerHandler:DecayInShower 0 1000014 #  sv2
+insert /Herwig/MSSM/V_GenericHPP:Bosons 0 sv2
+insert /Herwig/MSSM/V_GenericHGG:Bosons 0 sv2
+
+create ThePEG::ParticleData sv2c
+# values set to 999999 are recalculated later from other model parameters
+setup sv2c -1000014 sv2c ${MASS_1000014_ABS} ${DECAY_1000014} ${DECAY_1000014_WCUT} ${DECAY_1000014_CTAU} 0 0 1 0
+makeanti sv2 sv2c
+
+insert /Herwig/MSSM/V_GenericHPP:Bosons 0 sv2c
+insert /Herwig/MSSM/V_GenericHGG:Bosons 0 sv2c
+
+create ThePEG::ParticleData sv3
+# values set to 999999 are recalculated later from other model parameters
+setup sv3 1000016 sv3 ${MASS_1000016_ABS} ${DECAY_1000016} ${DECAY_1000016_WCUT} ${DECAY_1000016_CTAU} 0 0 1 0
+insert /Herwig/NewPhysics/NewModel:DecayParticles 0 sv3
+insert /Herwig/Shower/ShowerHandler:DecayInShower 0 1000016 #  sv3
+insert /Herwig/MSSM/V_GenericHPP:Bosons 0 sv3
+insert /Herwig/MSSM/V_GenericHGG:Bosons 0 sv3
+
+create ThePEG::ParticleData sv3c
+# values set to 999999 are recalculated later from other model parameters
+setup sv3c -1000016 sv3c ${MASS_1000016_ABS} ${DECAY_1000016} ${DECAY_1000016_WCUT} ${DECAY_1000016_CTAU} 0 0 1 0
+makeanti sv3 sv3c
+
+insert /Herwig/MSSM/V_GenericHPP:Bosons 0 sv3c
+insert /Herwig/MSSM/V_GenericHGG:Bosons 0 sv3c
+
+create ThePEG::ParticleData su1
+# values set to 999999 are recalculated later from other model parameters
+setup su1 1000002 su1 ${MASS_1000002_ABS} ${DECAY_1000002} ${DECAY_1000002_WCUT} ${DECAY_1000002_CTAU} 2 3 1 0
+insert /Herwig/NewPhysics/NewModel:DecayParticles 0 su1
+insert /Herwig/Shower/ShowerHandler:DecayInShower 0 1000002 #  su1
+create ThePEG::ParticleData su1c
+# values set to 999999 are recalculated later from other model parameters
+setup su1c -1000002 su1c ${MASS_1000002_ABS} ${DECAY_1000002} ${DECAY_1000002_WCUT} ${DECAY_1000002_CTAU} -2 -3 1 0
+makeanti su1 su1c
+
+create ThePEG::ParticleData su2
+# values set to 999999 are recalculated later from other model parameters
+setup su2 1000004 su2 ${MASS_1000004_ABS} ${DECAY_1000004} ${DECAY_1000004_WCUT} ${DECAY_1000004_CTAU} 2 3 1 0
+insert /Herwig/NewPhysics/NewModel:DecayParticles 0 su2
+insert /Herwig/Shower/ShowerHandler:DecayInShower 0 1000004 #  su2
+create ThePEG::ParticleData su2c
+# values set to 999999 are recalculated later from other model parameters
+setup su2c -1000004 su2c ${MASS_1000004_ABS} ${DECAY_1000004} ${DECAY_1000004_WCUT} ${DECAY_1000004_CTAU} -2 -3 1 0
+makeanti su2 su2c
+
+create ThePEG::ParticleData su3
+# values set to 999999 are recalculated later from other model parameters
+setup su3 1000006 su3 ${MASS_1000006_ABS} ${DECAY_1000006} ${DECAY_1000006_WCUT} ${DECAY_1000006_CTAU} 2 3 1 0
+insert /Herwig/NewPhysics/NewModel:DecayParticles 0 su3
+insert /Herwig/Shower/ShowerHandler:DecayInShower 0 1000006 #  su3
+create ThePEG::ParticleData su3c
+# values set to 999999 are recalculated later from other model parameters
+setup su3c -1000006 su3c ${MASS_1000006_ABS} ${DECAY_1000006} ${DECAY_1000006_WCUT} ${DECAY_1000006_CTAU} -2 -3 1 0
+makeanti su3 su3c
+
+create ThePEG::ParticleData su4
+# values set to 999999 are recalculated later from other model parameters
+setup su4 2000002 su4 ${MASS_2000002_ABS} ${DECAY_2000002} ${DECAY_2000002_WCUT} ${DECAY_2000002_CTAU} 2 3 1 0
+insert /Herwig/NewPhysics/NewModel:DecayParticles 0 su4
+insert /Herwig/Shower/ShowerHandler:DecayInShower 0 2000002 #  su4
+create ThePEG::ParticleData su4c
+# values set to 999999 are recalculated later from other model parameters
+setup su4c -2000002 su4c ${MASS_2000002_ABS} ${DECAY_2000002} ${DECAY_2000002_WCUT} ${DECAY_2000002_CTAU} -2 -3 1 0
+makeanti su4 su4c
+
+create ThePEG::ParticleData su5
+# values set to 999999 are recalculated later from other model parameters
+setup su5 2000004 su5 ${MASS_2000004_ABS} ${DECAY_2000004} ${DECAY_2000004_WCUT} ${DECAY_2000004_CTAU} 2 3 1 0
+insert /Herwig/NewPhysics/NewModel:DecayParticles 0 su5
+insert /Herwig/Shower/ShowerHandler:DecayInShower 0 2000004 #  su5
+create ThePEG::ParticleData su5c
+# values set to 999999 are recalculated later from other model parameters
+setup su5c -2000004 su5c ${MASS_2000004_ABS} ${DECAY_2000004} ${DECAY_2000004_WCUT} ${DECAY_2000004_CTAU} -2 -3 1 0
+makeanti su5 su5c
+
+create ThePEG::ParticleData su6
+# values set to 999999 are recalculated later from other model parameters
+setup su6 2000006 su6 ${MASS_2000006_ABS} ${DECAY_2000006} ${DECAY_2000006_WCUT} ${DECAY_2000006_CTAU} 2 3 1 0
+insert /Herwig/NewPhysics/NewModel:DecayParticles 0 su6
+insert /Herwig/Shower/ShowerHandler:DecayInShower 0 2000006 #  su6
+create ThePEG::ParticleData su6c
+# values set to 999999 are recalculated later from other model parameters
+setup su6c -2000006 su6c ${MASS_2000006_ABS} ${DECAY_2000006} ${DECAY_2000006_WCUT} ${DECAY_2000006_CTAU} -2 -3 1 0
+makeanti su6 su6c
+
+create ThePEG::ParticleData se1
+# values set to 999999 are recalculated later from other model parameters
+setup se1 1000011 se1 ${MASS_1000011_ABS} ${DECAY_1000011} ${DECAY_1000011_WCUT} ${DECAY_1000011_CTAU} -3 0 1 0
+insert /Herwig/NewPhysics/NewModel:DecayParticles 0 se1
+insert /Herwig/Shower/ShowerHandler:DecayInShower 0 1000011 #  se1
+create ThePEG::ParticleData se1c
+# values set to 999999 are recalculated later from other model parameters
+setup se1c -1000011 se1c ${MASS_1000011_ABS} ${DECAY_1000011} ${DECAY_1000011_WCUT} ${DECAY_1000011_CTAU} 3 0 1 0
+makeanti se1 se1c
+
+create ThePEG::ParticleData se2
+# values set to 999999 are recalculated later from other model parameters
+setup se2 1000013 se2 ${MASS_1000013_ABS} ${DECAY_1000013} ${DECAY_1000013_WCUT} ${DECAY_1000013_CTAU} -3 0 1 0
+insert /Herwig/NewPhysics/NewModel:DecayParticles 0 se2
+insert /Herwig/Shower/ShowerHandler:DecayInShower 0 1000013 #  se2
+create ThePEG::ParticleData se2c
+# values set to 999999 are recalculated later from other model parameters
+setup se2c -1000013 se2c ${MASS_1000013_ABS} ${DECAY_1000013} ${DECAY_1000013_WCUT} ${DECAY_1000013_CTAU} 3 0 1 0
+makeanti se2 se2c
+
+create ThePEG::ParticleData se3
+# values set to 999999 are recalculated later from other model parameters
+setup se3 1000015 se3 ${MASS_1000015_ABS} ${DECAY_1000015} ${DECAY_1000015_WCUT} ${DECAY_1000015_CTAU} -3 0 1 0
+insert /Herwig/NewPhysics/NewModel:DecayParticles 0 se3
+insert /Herwig/Shower/ShowerHandler:DecayInShower 0 1000015 #  se3
+create ThePEG::ParticleData se3c
+# values set to 999999 are recalculated later from other model parameters
+setup se3c -1000015 se3c ${MASS_1000015_ABS} ${DECAY_1000015} ${DECAY_1000015_WCUT} ${DECAY_1000015_CTAU} 3 0 1 0
+makeanti se3 se3c
+
+create ThePEG::ParticleData se4
+# values set to 999999 are recalculated later from other model parameters
+setup se4 2000011 se4 ${MASS_2000011_ABS} ${DECAY_2000011} ${DECAY_2000011_WCUT} ${DECAY_2000011_CTAU} -3 0 1 0
+insert /Herwig/NewPhysics/NewModel:DecayParticles 0 se4
+insert /Herwig/Shower/ShowerHandler:DecayInShower 0 2000011 #  se4
+create ThePEG::ParticleData se4c
+# values set to 999999 are recalculated later from other model parameters
+setup se4c -2000011 se4c ${MASS_2000011_ABS} ${DECAY_2000011} ${DECAY_2000011_WCUT} ${DECAY_2000011_CTAU} 3 0 1 0
+makeanti se4 se4c
+
+create ThePEG::ParticleData se5
+# values set to 999999 are recalculated later from other model parameters
+setup se5 2000013 se5 ${MASS_2000013_ABS} ${DECAY_2000013} ${DECAY_2000013_WCUT} ${DECAY_2000013_CTAU} -3 0 1 0
+insert /Herwig/NewPhysics/NewModel:DecayParticles 0 se5
+insert /Herwig/Shower/ShowerHandler:DecayInShower 0 2000013 #  se5
+create ThePEG::ParticleData se5c
+# values set to 999999 are recalculated later from other model parameters
+setup se5c -2000013 se5c ${MASS_2000013_ABS} ${DECAY_2000013} ${DECAY_2000013_WCUT} ${DECAY_2000013_CTAU} 3 0 1 0
+makeanti se5 se5c
+
+create ThePEG::ParticleData se6
+# values set to 999999 are recalculated later from other model parameters
+setup se6 2000015 se6 ${MASS_2000015_ABS} ${DECAY_2000015} ${DECAY_2000015_WCUT} ${DECAY_2000015_CTAU} -3 0 1 0
+insert /Herwig/NewPhysics/NewModel:DecayParticles 0 se6
+insert /Herwig/Shower/ShowerHandler:DecayInShower 0 2000015 #  se6
+create ThePEG::ParticleData se6c
+# values set to 999999 are recalculated later from other model parameters
+setup se6c -2000015 se6c ${MASS_2000015_ABS} ${DECAY_2000015} ${DECAY_2000015_WCUT} ${DECAY_2000015_CTAU} 3 0 1 0
+makeanti se6 se6c
+
+set /Herwig/Particles/h0:Mass_generator NULL
+set /Herwig/Particles/h0:Width_generator NULL
+rm /Herwig/Masses/HiggsMass
+rm /Herwig/Widths/hWidth
+
+create ThePEG::ParticleData h1
+# values set to 999999 are recalculated later from other model parameters
+setup h1 25 h1 ${MASS_25_ABS} ${DECAY_25} ${DECAY_25_WCUT} ${DECAY_25_CTAU} 0 0 1 0
+insert /Herwig/NewPhysics/NewModel:DecayParticles 0 h1
+insert /Herwig/Shower/ShowerHandler:DecayInShower 0 25 #  h1
+insert /Herwig/MSSM/V_GenericHPP:Bosons 0 h1
+insert /Herwig/MSSM/V_GenericHGG:Bosons 0 h1
+
+create ThePEG::ParticleData h2
+# values set to 999999 are recalculated later from other model parameters
+setup h2 35 h2 ${MASS_35_ABS} ${DECAY_35} ${DECAY_35_WCUT} ${DECAY_35_CTAU} 0 0 1 0
+insert /Herwig/NewPhysics/NewModel:DecayParticles 0 h2
+insert /Herwig/Shower/ShowerHandler:DecayInShower 0 35 #  h2
+insert /Herwig/MSSM/V_GenericHPP:Bosons 0 h2
+insert /Herwig/MSSM/V_GenericHGG:Bosons 0 h2
+
+create ThePEG::ParticleData Ah2
+# values set to 999999 are recalculated later from other model parameters
+setup Ah2 36 Ah2 ${MASS_36_ABS} ${DECAY_36} ${DECAY_36_WCUT} ${DECAY_36_CTAU} 0 0 1 0
+insert /Herwig/NewPhysics/NewModel:DecayParticles 0 Ah2
+insert /Herwig/Shower/ShowerHandler:DecayInShower 0 36 #  Ah2
+insert /Herwig/MSSM/V_GenericHPP:Bosons 0 Ah2
+insert /Herwig/MSSM/V_GenericHGG:Bosons 0 Ah2
+
+create ThePEG::ParticleData Hm2
+# values set to 999999 are recalculated later from other model parameters
+setup Hm2 -37 Hm2 ${MASS_37_ABS} ${DECAY_37} ${DECAY_37_WCUT} ${DECAY_37_CTAU} -3 0 1 0
+insert /Herwig/NewPhysics/NewModel:DecayParticles 0 Hm2
+insert /Herwig/Shower/ShowerHandler:DecayInShower 0 37 #  Hm2
+create ThePEG::ParticleData Hm2c
+# values set to 999999 are recalculated later from other model parameters
+setup Hm2c 37 Hm2c ${MASS_37_ABS} ${DECAY_37} ${DECAY_37_WCUT} ${DECAY_37_CTAU} 3 0 1 0
+makeanti Hm2 Hm2c
 
 create Herwig::HalfHalfOneSplitFn goSplitFn
 set goSplitFn:InteractionType QCD
@@ -23,56 +331,12 @@ cp /Herwig/Shower/SudakovCommon goSudakov
 set goSudakov:SplittingFunction goSplitFn
 do /Herwig/Shower/SplittingGenerator:AddFinalSplitting go->go,g; goSudakov
 
-create ThePEG::ParticleData N1
-setup N1 1000022 N1 ${MASS_1000022_ABS} ${DECAY_1000022} ${DECAY_1000022_WCUT} ${DECAY_1000022_CTAU} 0 0 2 0
-insert /Herwig/NewPhysics/NewModel:DecayParticles 0 N1
-
-create ThePEG::ParticleData N2
-setup N2 1000023 N2 ${MASS_1000023_ABS} ${DECAY_1000023} ${DECAY_1000023_WCUT} ${DECAY_1000023_CTAU} 0 0 2 0
-insert /Herwig/NewPhysics/NewModel:DecayParticles 0 N2
-
-create ThePEG::ParticleData N3
-setup N3 1000025 N3 ${MASS_1000025_ABS} ${DECAY_1000025} ${DECAY_1000025_WCUT} ${DECAY_1000025_CTAU} 0 0 2 0
-insert /Herwig/NewPhysics/NewModel:DecayParticles 0 N3
-
-create ThePEG::ParticleData N4
-setup N4 1000035 N4 ${MASS_1000035_ABS} ${DECAY_1000035} ${DECAY_1000035_WCUT} ${DECAY_1000035_CTAU} 0 0 2 0
-insert /Herwig/NewPhysics/NewModel:DecayParticles 0 N4
-
-create ThePEG::ParticleData C1
-setup C1 -1000024 C1 ${MASS_1000024_ABS} ${DECAY_1000024} ${DECAY_1000024_WCUT} ${DECAY_1000024_CTAU} -3 0 2 0
-insert /Herwig/NewPhysics/NewModel:DecayParticles 0 C1
-
-create ThePEG::ParticleData C1bar
-setup C1bar 1000024 C1bar ${MASS_1000024_ABS} ${DECAY_1000024} ${DECAY_1000024_WCUT} ${DECAY_1000024_CTAU} 3 0 2 0
-makeanti C1 C1bar
-
-create ThePEG::ParticleData C2
-setup C2 -1000037 C2 ${MASS_1000037_ABS} ${DECAY_1000037} ${DECAY_1000037_WCUT} ${DECAY_1000037_CTAU} -3 0 2 0
-insert /Herwig/NewPhysics/NewModel:DecayParticles 0 C2
-
-create ThePEG::ParticleData C2bar
-setup C2bar 1000037 C2bar ${MASS_1000037_ABS} ${DECAY_1000037} ${DECAY_1000037_WCUT} ${DECAY_1000037_CTAU} 3 0 2 0
-makeanti C2 C2bar
-
-create ThePEG::ParticleData sd1
-setup sd1 1000001 sd1 ${MASS_1000001_ABS} ${DECAY_1000001} ${DECAY_1000001_WCUT} ${DECAY_1000001_CTAU} -1 3 1 0
-insert /Herwig/NewPhysics/NewModel:DecayParticles 0 sd1
-
 create Herwig::ZeroZeroOneSplitFn sd1SplitFn
 set sd1SplitFn:InteractionType QCD
 set sd1SplitFn:ColourStructure TripletTripletOctet
 cp /Herwig/Shower/SudakovCommon sd1Sudakov
 set sd1Sudakov:SplittingFunction sd1SplitFn
 do /Herwig/Shower/SplittingGenerator:AddFinalSplitting sd1->sd1,g; sd1Sudakov
-
-create ThePEG::ParticleData sd1c
-setup sd1c -1000001 sd1c ${MASS_1000001_ABS} ${DECAY_1000001} ${DECAY_1000001_WCUT} ${DECAY_1000001_CTAU} 1 -3 1 0
-makeanti sd1 sd1c
-
-create ThePEG::ParticleData sd2
-setup sd2 1000003 sd2 ${MASS_1000003_ABS} ${DECAY_1000003} ${DECAY_1000003_WCUT} ${DECAY_1000003_CTAU} -1 3 1 0
-insert /Herwig/NewPhysics/NewModel:DecayParticles 0 sd2
 
 create Herwig::ZeroZeroOneSplitFn sd2SplitFn
 set sd2SplitFn:InteractionType QCD
@@ -81,28 +345,12 @@ cp /Herwig/Shower/SudakovCommon sd2Sudakov
 set sd2Sudakov:SplittingFunction sd2SplitFn
 do /Herwig/Shower/SplittingGenerator:AddFinalSplitting sd2->sd2,g; sd2Sudakov
 
-create ThePEG::ParticleData sd2c
-setup sd2c -1000003 sd2c ${MASS_1000003_ABS} ${DECAY_1000003} ${DECAY_1000003_WCUT} ${DECAY_1000003_CTAU} 1 -3 1 0
-makeanti sd2 sd2c
-
-create ThePEG::ParticleData sd3
-setup sd3 1000005 sd3 ${MASS_1000005_ABS} ${DECAY_1000005} ${DECAY_1000005_WCUT} ${DECAY_1000005_CTAU} -1 3 1 0
-insert /Herwig/NewPhysics/NewModel:DecayParticles 0 sd3
-
 create Herwig::ZeroZeroOneSplitFn sd3SplitFn
 set sd3SplitFn:InteractionType QCD
 set sd3SplitFn:ColourStructure TripletTripletOctet
 cp /Herwig/Shower/SudakovCommon sd3Sudakov
 set sd3Sudakov:SplittingFunction sd3SplitFn
 do /Herwig/Shower/SplittingGenerator:AddFinalSplitting sd3->sd3,g; sd3Sudakov
-
-create ThePEG::ParticleData sd3c
-setup sd3c -1000005 sd3c ${MASS_1000005_ABS} ${DECAY_1000005} ${DECAY_1000005_WCUT} ${DECAY_1000005_CTAU} 1 -3 1 0
-makeanti sd3 sd3c
-
-create ThePEG::ParticleData sd4
-setup sd4 2000001 sd4 ${MASS_2000001_ABS} ${DECAY_2000001} ${DECAY_2000001_WCUT} ${DECAY_2000001_CTAU} -1 3 1 0
-insert /Herwig/NewPhysics/NewModel:DecayParticles 0 sd4
 
 create Herwig::ZeroZeroOneSplitFn sd4SplitFn
 set sd4SplitFn:InteractionType QCD
@@ -111,28 +359,12 @@ cp /Herwig/Shower/SudakovCommon sd4Sudakov
 set sd4Sudakov:SplittingFunction sd4SplitFn
 do /Herwig/Shower/SplittingGenerator:AddFinalSplitting sd4->sd4,g; sd4Sudakov
 
-create ThePEG::ParticleData sd4c
-setup sd4c -2000001 sd4c ${MASS_2000001_ABS} ${DECAY_2000001} ${DECAY_2000001_WCUT} ${DECAY_2000001_CTAU} 1 -3 1 0
-makeanti sd4 sd4c
-
-create ThePEG::ParticleData sd5
-setup sd5 2000003 sd5 ${MASS_2000003_ABS} ${DECAY_2000003} ${DECAY_2000003_WCUT} ${DECAY_2000003_CTAU} -1 3 1 0
-insert /Herwig/NewPhysics/NewModel:DecayParticles 0 sd5
-
 create Herwig::ZeroZeroOneSplitFn sd5SplitFn
 set sd5SplitFn:InteractionType QCD
 set sd5SplitFn:ColourStructure TripletTripletOctet
 cp /Herwig/Shower/SudakovCommon sd5Sudakov
 set sd5Sudakov:SplittingFunction sd5SplitFn
 do /Herwig/Shower/SplittingGenerator:AddFinalSplitting sd5->sd5,g; sd5Sudakov
-
-create ThePEG::ParticleData sd5c
-setup sd5c -2000003 sd5c ${MASS_2000003_ABS} ${DECAY_2000003} ${DECAY_2000003_WCUT} ${DECAY_2000003_CTAU} 1 -3 1 0
-makeanti sd5 sd5c
-
-create ThePEG::ParticleData sd6
-setup sd6 2000005 sd6 ${MASS_2000005_ABS} ${DECAY_2000005} ${DECAY_2000005_WCUT} ${DECAY_2000005_CTAU} -1 3 1 0
-insert /Herwig/NewPhysics/NewModel:DecayParticles 0 sd6
 
 create Herwig::ZeroZeroOneSplitFn sd6SplitFn
 set sd6SplitFn:InteractionType QCD
@@ -141,70 +373,12 @@ cp /Herwig/Shower/SudakovCommon sd6Sudakov
 set sd6Sudakov:SplittingFunction sd6SplitFn
 do /Herwig/Shower/SplittingGenerator:AddFinalSplitting sd6->sd6,g; sd6Sudakov
 
-create ThePEG::ParticleData sd6c
-setup sd6c -2000005 sd6c ${MASS_2000005_ABS} ${DECAY_2000005} ${DECAY_2000005_WCUT} ${DECAY_2000005_CTAU} 1 -3 1 0
-makeanti sd6 sd6c
-
-create ThePEG::ParticleData sv1
-setup sv1 1000012 sv1 ${MASS_1000012_ABS} ${DECAY_1000012} ${DECAY_1000012_WCUT} ${DECAY_1000012_CTAU} 0 0 1 0
-insert /Herwig/NewPhysics/NewModel:DecayParticles 0 sv1
-
-insert /Herwig/MSSM/V_GenericHPP:Bosons 0 sv1
-insert /Herwig/MSSM/V_GenericHGG:Bosons 0 sv1
-
-create ThePEG::ParticleData sv1c
-setup sv1c -1000012 sv1c ${MASS_1000012_ABS} ${DECAY_1000012} ${DECAY_1000012_WCUT} ${DECAY_1000012_CTAU} 0 0 1 0
-makeanti sv1 sv1c
-
-insert /Herwig/MSSM/V_GenericHPP:Bosons 0 sv1c
-insert /Herwig/MSSM/V_GenericHGG:Bosons 0 sv1c
-
-create ThePEG::ParticleData sv2
-setup sv2 1000014 sv2 ${MASS_1000014_ABS} ${DECAY_1000014} ${DECAY_1000014_WCUT} ${DECAY_1000014_CTAU} 0 0 1 0
-insert /Herwig/NewPhysics/NewModel:DecayParticles 0 sv2
-
-insert /Herwig/MSSM/V_GenericHPP:Bosons 0 sv2
-insert /Herwig/MSSM/V_GenericHGG:Bosons 0 sv2
-
-create ThePEG::ParticleData sv2c
-setup sv2c -1000014 sv2c ${MASS_1000014_ABS} ${DECAY_1000014} ${DECAY_1000014_WCUT} ${DECAY_1000014_CTAU} 0 0 1 0
-makeanti sv2 sv2c
-
-insert /Herwig/MSSM/V_GenericHPP:Bosons 0 sv2c
-insert /Herwig/MSSM/V_GenericHGG:Bosons 0 sv2c
-
-create ThePEG::ParticleData sv3
-setup sv3 1000016 sv3 ${MASS_1000016_ABS} ${DECAY_1000016} ${DECAY_1000016_WCUT} ${DECAY_1000016_CTAU} 0 0 1 0
-insert /Herwig/NewPhysics/NewModel:DecayParticles 0 sv3
-
-insert /Herwig/MSSM/V_GenericHPP:Bosons 0 sv3
-insert /Herwig/MSSM/V_GenericHGG:Bosons 0 sv3
-
-create ThePEG::ParticleData sv3c
-setup sv3c -1000016 sv3c ${MASS_1000016_ABS} ${DECAY_1000016} ${DECAY_1000016_WCUT} ${DECAY_1000016_CTAU} 0 0 1 0
-makeanti sv3 sv3c
-
-insert /Herwig/MSSM/V_GenericHPP:Bosons 0 sv3c
-insert /Herwig/MSSM/V_GenericHGG:Bosons 0 sv3c
-
-create ThePEG::ParticleData su1
-setup su1 1000002 su1 ${MASS_1000002_ABS} ${DECAY_1000002} ${DECAY_1000002_WCUT} ${DECAY_1000002_CTAU} 2 3 1 0
-insert /Herwig/NewPhysics/NewModel:DecayParticles 0 su1
-
 create Herwig::ZeroZeroOneSplitFn su1SplitFn
 set su1SplitFn:InteractionType QCD
 set su1SplitFn:ColourStructure TripletTripletOctet
 cp /Herwig/Shower/SudakovCommon su1Sudakov
 set su1Sudakov:SplittingFunction su1SplitFn
 do /Herwig/Shower/SplittingGenerator:AddFinalSplitting su1->su1,g; su1Sudakov
-
-create ThePEG::ParticleData su1c
-setup su1c -1000002 su1c ${MASS_1000002_ABS} ${DECAY_1000002} ${DECAY_1000002_WCUT} ${DECAY_1000002_CTAU} -2 -3 1 0
-makeanti su1 su1c
-
-create ThePEG::ParticleData su2
-setup su2 1000004 su2 ${MASS_1000004_ABS} ${DECAY_1000004} ${DECAY_1000004_WCUT} ${DECAY_1000004_CTAU} 2 3 1 0
-insert /Herwig/NewPhysics/NewModel:DecayParticles 0 su2
 
 create Herwig::ZeroZeroOneSplitFn su2SplitFn
 set su2SplitFn:InteractionType QCD
@@ -213,28 +387,12 @@ cp /Herwig/Shower/SudakovCommon su2Sudakov
 set su2Sudakov:SplittingFunction su2SplitFn
 do /Herwig/Shower/SplittingGenerator:AddFinalSplitting su2->su2,g; su2Sudakov
 
-create ThePEG::ParticleData su2c
-setup su2c -1000004 su2c ${MASS_1000004_ABS} ${DECAY_1000004} ${DECAY_1000004_WCUT} ${DECAY_1000004_CTAU} -2 -3 1 0
-makeanti su2 su2c
-
-create ThePEG::ParticleData su3
-setup su3 1000006 su3 ${MASS_1000006_ABS} ${DECAY_1000006} ${DECAY_1000006_WCUT} ${DECAY_1000006_CTAU} 2 3 1 0
-insert /Herwig/NewPhysics/NewModel:DecayParticles 0 su3
-
 create Herwig::ZeroZeroOneSplitFn su3SplitFn
 set su3SplitFn:InteractionType QCD
 set su3SplitFn:ColourStructure TripletTripletOctet
 cp /Herwig/Shower/SudakovCommon su3Sudakov
 set su3Sudakov:SplittingFunction su3SplitFn
 do /Herwig/Shower/SplittingGenerator:AddFinalSplitting su3->su3,g; su3Sudakov
-
-create ThePEG::ParticleData su3c
-setup su3c -1000006 su3c ${MASS_1000006_ABS} ${DECAY_1000006} ${DECAY_1000006_WCUT} ${DECAY_1000006_CTAU} -2 -3 1 0
-makeanti su3 su3c
-
-create ThePEG::ParticleData su4
-setup su4 2000002 su4 ${MASS_2000002_ABS} ${DECAY_2000002} ${DECAY_2000002_WCUT} ${DECAY_2000002_CTAU} 2 3 1 0
-insert /Herwig/NewPhysics/NewModel:DecayParticles 0 su4
 
 create Herwig::ZeroZeroOneSplitFn su4SplitFn
 set su4SplitFn:InteractionType QCD
@@ -243,14 +401,6 @@ cp /Herwig/Shower/SudakovCommon su4Sudakov
 set su4Sudakov:SplittingFunction su4SplitFn
 do /Herwig/Shower/SplittingGenerator:AddFinalSplitting su4->su4,g; su4Sudakov
 
-create ThePEG::ParticleData su4c
-setup su4c -2000002 su4c ${MASS_2000002_ABS} ${DECAY_2000002} ${DECAY_2000002_WCUT} ${DECAY_2000002_CTAU} -2 -3 1 0
-makeanti su4 su4c
-
-create ThePEG::ParticleData su5
-setup su5 2000004 su5 ${MASS_2000004_ABS} ${DECAY_2000004} ${DECAY_2000004_WCUT} ${DECAY_2000004_CTAU} 2 3 1 0
-insert /Herwig/NewPhysics/NewModel:DecayParticles 0 su5
-
 create Herwig::ZeroZeroOneSplitFn su5SplitFn
 set su5SplitFn:InteractionType QCD
 set su5SplitFn:ColourStructure TripletTripletOctet
@@ -258,106 +408,12 @@ cp /Herwig/Shower/SudakovCommon su5Sudakov
 set su5Sudakov:SplittingFunction su5SplitFn
 do /Herwig/Shower/SplittingGenerator:AddFinalSplitting su5->su5,g; su5Sudakov
 
-create ThePEG::ParticleData su5c
-setup su5c -2000004 su5c ${MASS_2000004_ABS} ${DECAY_2000004} ${DECAY_2000004_WCUT} ${DECAY_2000004_CTAU} -2 -3 1 0
-makeanti su5 su5c
-
-create ThePEG::ParticleData su6
-setup su6 2000006 su6 ${MASS_2000006_ABS} ${DECAY_2000006} ${DECAY_2000006_WCUT} ${DECAY_2000006_CTAU} 2 3 1 0
-insert /Herwig/NewPhysics/NewModel:DecayParticles 0 su6
-
 create Herwig::ZeroZeroOneSplitFn su6SplitFn
 set su6SplitFn:InteractionType QCD
 set su6SplitFn:ColourStructure TripletTripletOctet
 cp /Herwig/Shower/SudakovCommon su6Sudakov
 set su6Sudakov:SplittingFunction su6SplitFn
 do /Herwig/Shower/SplittingGenerator:AddFinalSplitting su6->su6,g; su6Sudakov
-
-create ThePEG::ParticleData su6c
-setup su6c -2000006 su6c ${MASS_2000006_ABS} ${DECAY_2000006} ${DECAY_2000006_WCUT} ${DECAY_2000006_CTAU} -2 -3 1 0
-makeanti su6 su6c
-
-create ThePEG::ParticleData se1
-setup se1 1000011 se1 ${MASS_1000011_ABS} ${DECAY_1000011} ${DECAY_1000011_WCUT} ${DECAY_1000011_CTAU} -3 0 1 0
-insert /Herwig/NewPhysics/NewModel:DecayParticles 0 se1
-
-create ThePEG::ParticleData se1c
-setup se1c -1000011 se1c ${MASS_1000011_ABS} ${DECAY_1000011} ${DECAY_1000011_WCUT} ${DECAY_1000011_CTAU} 3 0 1 0
-makeanti se1 se1c
-
-create ThePEG::ParticleData se2
-setup se2 1000013 se2 ${MASS_1000013_ABS} ${DECAY_1000013} ${DECAY_1000013_WCUT} ${DECAY_1000013_CTAU} -3 0 1 0
-insert /Herwig/NewPhysics/NewModel:DecayParticles 0 se2
-
-create ThePEG::ParticleData se2c
-setup se2c -1000013 se2c ${MASS_1000013_ABS} ${DECAY_1000013} ${DECAY_1000013_WCUT} ${DECAY_1000013_CTAU} 3 0 1 0
-makeanti se2 se2c
-
-create ThePEG::ParticleData se3
-setup se3 1000015 se3 ${MASS_1000015_ABS} ${DECAY_1000015} ${DECAY_1000015_WCUT} ${DECAY_1000015_CTAU} -3 0 1 0
-insert /Herwig/NewPhysics/NewModel:DecayParticles 0 se3
-
-create ThePEG::ParticleData se3c
-setup se3c -1000015 se3c ${MASS_1000015_ABS} ${DECAY_1000015} ${DECAY_1000015_WCUT} ${DECAY_1000015_CTAU} 3 0 1 0
-makeanti se3 se3c
-
-create ThePEG::ParticleData se4
-setup se4 2000011 se4 ${MASS_2000011_ABS} ${DECAY_2000011} ${DECAY_2000011_WCUT} ${DECAY_2000011_CTAU} -3 0 1 0
-insert /Herwig/NewPhysics/NewModel:DecayParticles 0 se4
-
-create ThePEG::ParticleData se4c
-setup se4c -2000011 se4c ${MASS_2000011_ABS} ${DECAY_2000011} ${DECAY_2000011_WCUT} ${DECAY_2000011_CTAU} 3 0 1 0
-makeanti se4 se4c
-
-create ThePEG::ParticleData se5
-setup se5 2000013 se5 ${MASS_2000013_ABS} ${DECAY_2000013} ${DECAY_2000013_WCUT} ${DECAY_2000013_CTAU} -3 0 1 0
-insert /Herwig/NewPhysics/NewModel:DecayParticles 0 se5
-
-create ThePEG::ParticleData se5c
-setup se5c -2000013 se5c ${MASS_2000013_ABS} ${DECAY_2000013} ${DECAY_2000013_WCUT} ${DECAY_2000013_CTAU} 3 0 1 0
-makeanti se5 se5c
-
-create ThePEG::ParticleData se6
-setup se6 2000015 se6 ${MASS_2000015_ABS} ${DECAY_2000015} ${DECAY_2000015_WCUT} ${DECAY_2000015_CTAU} -3 0 1 0
-insert /Herwig/NewPhysics/NewModel:DecayParticles 0 se6
-
-create ThePEG::ParticleData se6c
-setup se6c -2000015 se6c ${MASS_2000015_ABS} ${DECAY_2000015} ${DECAY_2000015_WCUT} ${DECAY_2000015_CTAU} 3 0 1 0
-makeanti se6 se6c
-
-set /Herwig/Particles/h0:Mass_generator NULL
-set /Herwig/Particles/h0:Width_generator NULL
-rm /Herwig/Masses/HiggsMass
-rm /Herwig/Widths/HiggsWidth
-
-create ThePEG::ParticleData h1
-setup h1 25 h1 ${MASS_25_ABS} ${DECAY_25} ${DECAY_25_WCUT} ${DECAY_25_CTAU} 0 0 1 0
-insert /Herwig/NewPhysics/NewModel:DecayParticles 0 h1
-
-insert /Herwig/MSSM/V_GenericHPP:Bosons 0 h1
-insert /Herwig/MSSM/V_GenericHGG:Bosons 0 h1
-
-create ThePEG::ParticleData h2
-setup h2 35 h2 ${MASS_35_ABS} ${DECAY_35} ${DECAY_35_WCUT} ${DECAY_35_CTAU} 0 0 1 0
-insert /Herwig/NewPhysics/NewModel:DecayParticles 0 h2
-
-insert /Herwig/MSSM/V_GenericHPP:Bosons 0 h2
-insert /Herwig/MSSM/V_GenericHGG:Bosons 0 h2
-
-create ThePEG::ParticleData Ah2
-setup Ah2 36 Ah2 ${MASS_36_ABS} ${DECAY_36} ${DECAY_36_WCUT} ${DECAY_36_CTAU} 0 0 1 0
-insert /Herwig/NewPhysics/NewModel:DecayParticles 0 Ah2
-
-insert /Herwig/MSSM/V_GenericHPP:Bosons 0 Ah2
-insert /Herwig/MSSM/V_GenericHGG:Bosons 0 Ah2
-
-create ThePEG::ParticleData Hm2
-setup Hm2 -37 Hm2 ${MASS_37_ABS} ${DECAY_37} ${DECAY_37_WCUT} ${DECAY_37_CTAU} -3 0 1 0
-insert /Herwig/NewPhysics/NewModel:DecayParticles 0 Hm2
-
-create ThePEG::ParticleData Hm2c
-setup Hm2c 37 Hm2c ${MASS_37_ABS} ${DECAY_37} ${DECAY_37_WCUT} ${DECAY_37_CTAU} 3 0 1 0
-makeanti Hm2 Hm2c
 
 
 
@@ -378,8 +434,8 @@ create Herwig::MSSM MSSM
 
 # SM couplings
 
-set MSSM:QCD/RunningAlphaS /Herwig/AlphaS
-set MSSM:EW/RunningAlphaEM /Herwig/AlphaEM
+set MSSM:QCD/RunningAlphaS /Herwig/Couplings/NLOAlphaS
+set MSSM:EW/RunningAlphaEM /Herwig/Couplings/AlphaEM
 set MSSM:EW/CKM /Herwig/CKM
 set MSSM:RunningMass /Herwig/RunningMass
 
@@ -967,6 +1023,12 @@ set MSSM:betaH ${HMIX_10}
 set MSSM:aS ${SMINPUTS_3}
 set MSSM:aEWM1 ${SMINPUTS_1}
 set MSSM:Gf ${SMINPUTS_2}
+set MSSM:HPP1 ${EFFHIGGSCOUPLINGS_25_22_22}
+set MSSM:HGG1 ${EFFHIGGSCOUPLINGS_25_21_21}
+set MSSM:HPP2 ${EFFHIGGSCOUPLINGS_35_22_22}
+set MSSM:HGG2 ${EFFHIGGSCOUPLINGS_35_21_21}
+set MSSM:APP2 ${EFFHIGGSCOUPLINGS_36_22_22}
+set MSSM:AGG2 ${EFFHIGGSCOUPLINGS_36_21_21}
 
 ###################################################
 #
@@ -6647,5 +6709,4 @@ cd /Herwig/Generators
 erase DefaultStrategy:DefaultParticlesDirs[0]
 insert DefaultStrategy:DefaultParticlesDirs[0] /Herwig/MSSM/Particles
 
-set LEPGenerator:StandardModelParameters  /Herwig/MSSM/MSSM
-set LHCGenerator:StandardModelParameters  /Herwig/MSSM/MSSM
+set EventGenerator:StandardModelParameters  /Herwig/MSSM/MSSM

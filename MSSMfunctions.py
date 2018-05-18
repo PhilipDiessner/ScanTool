@@ -1,35 +1,38 @@
 import datetime
 import time
 import os.path as osp
-import SLHA_extract_values as SLHA
 import sqlite3
 import numpy as np
 import Init
 import Run
+import SLHA_extract_values as SLHA
 import LHCstudies as lhc
 from functools import partial
-from MRSSMroutines import run_base
-from MRSSMfunctions import read_CM
+from MRSSMfunctions import read_CM,read_CM2
 
 # Global variables specifing scaning also needed for MPI
-scanname = "pMSSMewinos"
-scandir = osp.expanduser("~/raid2/MRSSMscans/")
-dbdir = osp.expanduser("~/raid1/pointdbs/")
+scanname = "MSSM_msqmst"
+homeprefix = '/afs/desy.de/user/d/diessner/'
+inprefix = '/nfs/theoc/data/diessner/'
+outprefix = '/nfs/theoc/data2/diessner/'
+scandir = osp.expanduser("/nfs/theoc/data2/diessner/MRSSMscans/")
+dbdir = osp.join(homeprefix,"theorie/pointdbs/")
 outdb = osp.join(dbdir,scanname+".db")
 scanpath = osp.join(scandir,scanname)
+Htemplate = osp.join(inprefix,'ScanTool/MSSM.template')
+Hconf_process = osp.join(inprefix,'ScanTool/LHC-mssm.base')
+SPhenodir = osp.join(inprefix,"SPheno-4.0.3/")
 
-Htemplate = "/home/diessner/raid2/Herwig++/Models/MSSM/mssm.template"
-analyses = [ "atlas_conf_2013_049","atlas_1402_7029",
-                 "atlas_conf_2013_035","atlas_conf_2013_036", "atlas_1403_5294"]
-nofevents = 100000
+nofevents = 75000
+analyses = [ "atlas13TeV"]
 print outdb
 
 parameter = ["m1", "m2", "m3", "mq2", "mq332", "ml2", 
                  "ml332", "mu2", "mu332", "md2", "md332", 
-                 "me2", "me332",  "mu", "ma2", "tanbeta","Ae","Ad","Au"]
+                 "me2", "me332",  "mu", "bmu", "tanbeta","Xe","Xd","Xu"]
 para_types = ["real"]*len(parameter)
 
-SPheno_MSSM = Run.SPheno_run("/home/diessner/raid2/SPheno-3.3.6/", "MSSM", 
+SPheno_MSSM = Run.SPheno_run(SPhenodir, "MSSM", 
                             "{0}.SLHA.in", "SPheno.spc.MSSM")
 
 # def SPhenoMSSMwrapper(i,scandir):
@@ -54,7 +57,7 @@ def createSLHAinMSSMfull(parameters,switches):
 2 1              # Boundary Condition  
 6 0              # Generation Mixing 
 Block SMINPUTS    # Standard Model inputs 
-    2 1.166379E-05    # G_F,Fermi constant 
+    2 1.166370E-05    # G_F,Fermi constant 
     3 1.188000E-01    # alpha_s(MZ) SM MSbar 
     4 9.118760E+01    # Z-boson pole mass 
     5 4.180000E+00    # m_b(mb) SM MSbar 
@@ -63,57 +66,110 @@ Block SMINPUTS    # Standard Model inputs
 Block MINPAR      # Input parameters
 3   {0[15]:E}  # TanBeta
 Block EXTPAR      # Input parameters 
-1 {0[0]:E}     # M1input
-2 {0[1]:E}     # M2input
-3 {0[2]:E}     # M3input
-8 {0[3]:E}     # mq2input
-9 {0[4]:E}     # mq233input
-10 {0[5]:E}     # ml2input
-11 {0[6]:E}     # ml233input
-12 {0[7]:E}     # mu2input
-13 {0[8]:E}     # mu233input
-14 {0[9]:E}     # md2input
-15 {0[10]:E}     # md233input
-16 {0[11]:E}     # me2input
-17 {0[12]:E}     # me233input
-18 {0[16]:E}     # Xeinput
-19 {0[17]:E}     # Xdinput
-20 {0[18]:E}     # Xuinput
-23 {0[13]:E}     # Muinput
-24 {0[14]:E}     # MA2input
+1 {0[13]:E}    # MuInput
+7 {0[14]:E}   # BMuInput
+8 {0[3]:E}    # mq2Input
+9 {0[4]:E}    # mq233Input
+10 {0[5]:E}    # ml2Input
+11 {0[6]:E}    # ml233Input
+12 {0[7]:E}   # mu2Input
+13 {0[8]:E}    # mu233Input
+14 {0[9]:E}    # md2Input
+15 {0[10]:E}    # md233Input
+16 {0[11]:E}    # me2Input
+17 {0[12]:E}    # me233Input
+21 {0[0]:E}    # M1Input
+22 {0[1]:E}    # M2Input
+23 {0[2]:E}    # M3Input
 Block SPhenoInput   # SPheno specific input 
   1 -1              # error level 
-  2 1               # SPA conventions  
-  7 {1[0]}              # Skip 2-loop Higgs corrections
-  8  3              # Method used for two-loop calculation
-  9  1              # Gaugeless limit used at two-loop
- 10  0              # safe-mode used at two-loop
- 11 {1[1]}              # calculate branching ratios 
- 13 {1[1]}              # include 3-Body decays 
+  2  1              # SPA conventions 
+  7  0              # Skip 2-loop Higgs corrections 
+  8  3              # Method used for two-loop calculation 
+  9  1              # Gaugeless limit used at two-loop 
+ 10  0              # safe-mode used at two-loop 
+ 11 1               # calculate branching ratios 
+ 13 1               # 3-Body decays: none (0), fermion (1), scalar (2), both (3) 
+ 14 0               # Run couplings to scale of decaying particle 
  12 1.000E-04       # write only branching ratios larger than this value 
- 31 1000            # fixed GUT scale (-1: dynamical GUT scale) 
+ 15 1.000E-30       # write only decay if width larger than this value 
+ 16 0              # One-loop decays 
+ 31 0              # fixed GUT scale (-1: dynamical GUT scale) 
  32 0               # Strict unification 
  34 1.000E-04       # Precision of mass calculation 
  35 40              # Maximal number of iterations
+ 36 5               # Minimal number of iterations before discarding points
  37 1               # Set Yukawa scheme  
  38 2               # 1- or 2-Loop RGEs 
- 50 1               # Majorana phases: use only positive masses 
+ 50 1               # Majorana phases: use only positive masses (put 0 to use file with CalcHep/Micromegas!) 
  51 0               # Write Output in CKM basis 
- 52 1              # Write spectrum in case of tachyonic states 
- 54 1              # stop if iteration doesn't converge
- 55 {1[2]}             # Calculate one loop masses 
- 57 {1[3]}               # Calculate low energy constraints 
- 60 1               # Include possible, kinetic mixing 
+ 52 1               # Write spectrum in case of tachyonic states 
+ 55 0               # Calculate loop corrected masses 
+ 57 0               # Calculate low energy constraints 
  65 1               # Solution tadpole equation 
+ 66 1               # Two-Scale Matching 
+ 67 1               # effective Higgs mass calculation 
  75 0               # Write WHIZARD files 
- 76 {1[4]}               # Write HiggsBounds file 
+ 76 0               # Write HiggsBounds file   
+ 77 0               # Output for MicrOmegas (running masses for light quarks; real mixing matrices)   
+ 78 0               # Output for MadGraph (writes also vanishing blocks)   
  86 0.              # Maximal width to be counted as invisible in Higgs decays; -1: only LSP 
 510 0.              # Write tree level values for tadpole solutions 
 515 0               # Write parameter values at GUT scale 
-520 {1[4]}              # Write effective Higgs couplings (HiggsBounds blocks) 
-525 {1[4]}              # Write loop contributions to diphoton decay of Higgs 
-530 {1[5]}              # Write Blocks for Vevacious 
-550 {1[6]}              # Calculate Fine-Tuning
+520 0.              # Write effective Higgs couplings (HiggsBounds blocks): put 0 to use file with MadGraph! 
+521 0.              # Diphoton/Digluon widths including higher order 
+525 0.              # Write loop contributions to diphoton decay of Higgs 
+530 0.              # Write Blocks for Vevacious 
+1101 1             # Include Glu in 1.loop corrections 
+1102 1             # Include Fv in 1.loop corrections 
+1103 1             # Include Chi in 1.loop corrections 
+1104 1             # Include Cha in 1.loop corrections 
+1105 1             # Include Fe in 1.loop corrections 
+1106 1             # Include Fd in 1.loop corrections 
+1107 1             # Include Fu in 1.loop corrections 
+1201 1             # Include Sd in 1.loop corrections 
+1202 1             # Include Sv in 1.loop corrections 
+1203 1             # Include Su in 1.loop corrections 
+1204 1             # Include Se in 1.loop corrections 
+1205 1             # Include hh in 1.loop corrections 
+1206 1             # Include Ah in 1.loop corrections 
+1207 1             # Include Hpm in 1.loop corrections 
+1301 1             # Include VG in 1.loop corrections 
+1302 1             # Include VP in 1.loop corrections 
+1303 1             # Include VZ in 1.loop corrections 
+1304 1             # Include VWm in 1.loop corrections 
+1401 1             # Include gG in 1.loop corrections 
+1402 1             # Include gA in 1.loop corrections 
+1403 1             # Include gZ in 1.loop corrections 
+1404 1             # Include gWm in 1.loop corrections 
+1405 1             # Include gWpC in 1.loop corrections 
+1500 1               # Include Wave diagrams 1.loop corrections 
+1501 1               # Include Penguin diagrams 1.loop corrections 
+1502 1               # Include Box diagrams 1.loop corrections 
+Block DECAYOPTIONS   # Options to turn on/off specific decays 
+1    1     # Calc 3-Body decays of Glu 
+2    1     # Calc 3-Body decays of Chi 
+3    1     # Calc 3-Body decays of Cha 
+4    1     # Calc 3-Body decays of Sd 
+5    1     # Calc 3-Body decays of Su 
+6    1     # Calc 3-Body decays of Se 
+7    1     # Calc 3-Body decays of Sv 
+1001 0     # Loop Decay of Sd 
+1002 0     # Loop Decay of Su 
+1003 0     # Loop Decay of Se 
+1004 0     # Loop Decay of Sv 
+1005 0     # Loop Decay of hh 
+1006 0     # Loop Decay of Ah 
+1007 0     # Loop Decay of Hpm 
+1008 0     # Loop Decay of Glu 
+1009 0     # Loop Decay of Chi 
+1010 0     # Loop Decay of Cha 
+1011 0     # Loop Decay of Fu 
+1114 0.     # U-factors (0: off, 1:p2_i=m2_i, 2:p2=0, p3:p2_i=m2_1) 
+1115 0.     # Use loop-corrected masses for external states 
+1116 0.     # OS values for W,Z and fermions (0: off, 1:g1,g2,v 2:g1,g2,v,Y_i) 
+1117 0.     # Use defined counter-terms 
+1118 0.     # Use everywhere loop-corrected masses for loop-induced decays
 """.format(parameters,switches)
 
 
@@ -238,6 +294,32 @@ def MSSM_BM1():
                           mu,ma2,tanb,ae,ad,au]
     return mssm_value_arrays
 
+def MSSM_LHC():
+    tanb = 3 # range(2,61,2)
+    m1 = 1
+    m2 = 10000
+    m3 = 5000
+    mu = 10000
+    ma2 = 100000000
+    mq2 = 1000000
+    ml2 = 100000000
+    mu2 = 1000000
+    md2 = 1000000
+    me2 = 100000000
+    mq332 = 100000000
+    ml332 = 100000000
+    mu332 = 100000000
+    md332 = 100000000
+    me332 = 100000000
+    ae = 0
+    ad = 0
+    au = 0
+    mssm_value_arrays = [m1,m2,m3,
+                          mq2,mq332,ml2,ml332,
+                          mu2,mu332,md2,md332,me2,me332,
+                          mu,ma2,tanb,ae,ad,au]
+    return mssm_value_arrays
+
 def readHandW(i,scandir):
     masses = [['mh1','MASS',['25']],
               ['mh2','MASS',['35']],
@@ -262,43 +344,26 @@ def HBHSfullwrapper(i, scandir):
     wrapper(i,scandir)
 
 def scaninit():
-    point = MSSM_BM3()
+    point = MSSM_LHC()
     points = []
-    # mu332 = 700*700
-    # lamsu = 0.0
-    # lamtu = -1.1
-    #point[1:5] = [lamsu,lamsu,lamsu,lamtu] # lambdas 
-    #point[9] =  mu332 # stops
-    #point[13] =  mu332 # stops
-    #point[-2] = 80*80 # mS2
-    #point[-5] = 20 # MDB
-    # for x in np.append(np.arange(-2,-0.6, 0.05),[0.5,0.4,0.3,0.2,0]): # lambda
-    #     for y in range(0,50,1): # md1
-    #         for z in [i*i for i in range(0,100,2)]: # mS2
-    #             pointtmp = copy.deepcopy(point)
-    #             pointtmp[4]= x
-    #             pointtmp[-5] = y
-    #             pointtmp[-2] = z
-    #             points.append(pointtmp)
-    # for x in range(100,1001,30): # mdw
-    #     for y in range(100,501,30): # mu
-    #         pointtmp = copy.deepcopy(point)
-    #         pointtmp[-4] = x
-    #         pointtmp[5] = y
-    #         pointtmp[6] = y
-    #         points.append(pointtmp)
-    for x in range(100,501,50): # m2
-        for y in range(150,451,50): # mu
+
+    for x in range(1000,5001,400): # m1
+        for y in range(400,2001,200): # msq
             pointtmp = point[:]
-            pointtmp[-4] = 20
-            pointtmp[0] = 50
-            pointtmp[1] = x
-            pointtmp[11] = 450*450
-            pointtmp[12] = y*y
-            pointtmp[13] = 600
+            pointtmp[0] = 0
+            #pointtmp[13] = x
+            #pointtmp[1] = y
+            pointtmp[2] = 5000
+            pointtmp[3] = x*x
+            pointtmp[4] = y*y
+            pointtmp[7] = x*x
+            pointtmp[8] = y*y
+            pointtmp[9] = x*x
+            pointtmp[10] = y*y
             points.append(pointtmp)
     print len(points)
     switches = [0,0,1,0,0,0,0]
+    print scanpath,dbdir
     Init.init_struc(points, scanpath, zip(parameter,para_types), 
                switches, createSLHAinMSSMfull, dbdir,makedb=True)
 
@@ -316,26 +381,32 @@ def lhc_study(i,scandir, cm = True):
     # Hruncardname = osp.join(events,"Hrun.dat")
     Hconfigtmp = osp.join(hevents,"herwigMSSM")
     hepmcpath = osp.join(hevents, name +  ".hepmc")
-    Htemplate = '/home/diessner/raid1/ScanTool/MSSM.template'
     
     CMfile = osp.join(cmevents,"CM.dat")        
     slhafile = osp.join(cmevents, "SPheno.spc.MSSM")
+    SLHA.flavor_order(slhafile)
     lhepath = None
-    Hconfigbase = '/home/diessner/raid1/ScanTool/LHC-mssm.base'
+    Hconfigbase = Hconf_process
     lhc.full_herwig(slhafile,name,hevents,Hcardname,Hconfigtmp,Hconfigbase,
                     Htemplate, hepmcpath, nofevents)
     if cm:
-        lhc.CM_run(name,cmevents,analyses,hepmcpath,CMfile,nofevents,lhepath=lhepath)
+        #sigma,Kfac = lhc.get_Kfac("SPheno.spc.MSSM", cmevents, "sqsum")
+        #if sigma>0:
+        #    lhc.CM_run(name,cmevents,analyses,hepmcpath,CMfile,
+        #               nofevents,sigma=sigma,cleanup=False)
+        #else: 
+       	lhc.CM_run(name,cmevents,analyses,hepmcpath,CMfile,
+                      nofevents,cleanup=True)
 
-lhc_out = partial(Run.write_more_wrapper, read_CM, 'lhc')
-spheno_run = partial(run_base, SPheno_MSSM)
-lhc_run = partial(run_base, lhc_study) # (lhc_study,
-lhc_write = partial(run_base, lhc_out)
+lhc_out = partial(Run.write_more_wrapper, read_CM2, 'lhc')
+spheno_run = partial(Run.run_base, SPheno_MSSM)
+lhc_run = partial(Run.run_base, lhc_study) # (lhc_study,
+lhc_write = partial(Run.run_base, lhc_out)
 lhc_table = partial(Init.table_init, 'lhc', zip(['analysis','r','cl'],
                                                 ['text','real','real']))
 
 masses_table = partial(Init.table_init, 'masses', zip(masspar, ['real']*len(masspar)))
-masses_write = partial(run_base, write_masses)
+masses_write = partial(Run.run_base, write_masses)
 
 def adapt_stop_mass(val, value, param):
     # get correct combination, loop correction should be similar
@@ -378,18 +449,20 @@ def slepton_mass(i,scandir):
     fit1(i, scandir)
 
 
-slepton_run = partial(run_base, slepton_mass)
+slepton_run = partial(Run.run_base, slepton_mass)
 
 if __name__ == "__main__":
     start = time.time()
-    # scaninit()
-    # spheno_run(scanpath, outdb, parallel=True)
-    # lhc_table(outdb)
+    #scaninit()
+    #spheno_run(scanpath, outdb, parallel=True,ncores=10)
+    
+    # slepton_run(scanpath,outdb,parallel=False)
+    #lhc_run(scanpath, outdb, parallel=True,ncores=15)
+    
+    #lhc_table(outdb)
     masses_table(outdb)
     masses_write(scanpath, outdb)
-    # slepton_run(scanpath,outdb,parallel=False)
-    # lhc_run(scanpath, outdb, parallel=True)
-    # lhc_write(scanpath, outdb)
+    #lhc_write(scanpath, outdb)
     # fit1 = Run.adaptive_scan([["mq2","EXTPAR",["13"]],["mu2","EXTPAR",["9"]]], [["su1","MASS",["1000002"]], ["su2","MASS",["1000004"]]],
     #                   [1015,1015],adapt_stop_mass, changeparameter_in_SLHAin,
     #                   SPhenoMSSMwrapper)
