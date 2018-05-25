@@ -49,7 +49,7 @@ def run_on_dir(scandir, db=None):
             finite= False
         if parallel:
             if ncores == 0:
-                ncore = mp.cpu_count()/2 # taking into account virtual cores
+                ncore = mp.cpu_count()-1
             else:
                 ncore = ncores
             pool = mp.Pool(ncore) # ,maxtasksperchild=10)
@@ -304,13 +304,15 @@ def run_base(running_func, scanpath, db, parallel=True,method=None,ncores=20):
         for func in running_func:
             try:
                 runfunc(func, method=method, parallel=parallel, ncores=ncores)
-            except:
-                print "trouble with "+ func+ " for "+ db
+            except Exception as err:
+                print "trouble with "+ func.__name__ + " for "+ db
+                print err
                 pass
     else:
         try:
             runfunc(running_func, method=method, parallel=parallel, ncores=ncores)
-        except:
-            print "trouble with "+ running_func+ " for "+ db
+        except Exception as err:
+            print "trouble with "+ running_func.__name__+ " for "+ db
+            print err
             pass
             

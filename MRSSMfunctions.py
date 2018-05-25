@@ -9,7 +9,8 @@ import LHCstudies as lhc
 import SLHA_extract_values as SLHA
 from HEPpaths import inprefix,outprefix,homeprefix,\
     analyses,nofevents,Hconf_process,SPhenodir,Htemplate,\
-    mg_process,HBdir,HSdir,uncerfile,dmexecut
+    mg_process,HBdir,HSdir,uncerfile,dmexecut,sfermionmix
+
 
 def createSLHAinMRSSMfull(parameters,switches):
     """
@@ -198,6 +199,12 @@ Block SPhenoInput   # SPheno specific input
 525 {1[4]}              # Write loop contributions to diphoton decay of Higgs 
 530 {1[5]}              # Write Blocks for Vevacious 
 """.format(parameters,switches)
+
+
+if sfermionmix:
+    createSLHAinMRSSM = createSLHAinMRSSMmix
+else:
+    createSLHAinMRSSM = createSLHAinMRSSMfull
 
 # pass arguments to partial_runwrapper derived functions, have i, scandir
 # as usual argument
@@ -460,13 +467,12 @@ def lhc_study(i,scandir, cm = True):
     Hconfigbase = Hconf_process
     lhc.full_herwig(slhafile,name,hevents,Hcardname,Hconfigtmp,Hconfigbase,
                    Htemplate, hepmcpath, nofevents)
-    
     if cm:
         #sigma,Kfac = MRSSM_get_Kfac("SPheno.spc.MRSSM", cmevents, "sdcpl")
         #if sigma>0:
         #    lhc.CM_run(name,cmevents,analyses,hepmcpath,CMfile,nofevents,
         #               sigma=sigma,cleanup=False)
-        #else: 
+        #else:
         lhc.CM_run(name,cmevents,analyses,hepmcpath,CMfile,
                    nofevents,cleanup=True)
         #print sigma

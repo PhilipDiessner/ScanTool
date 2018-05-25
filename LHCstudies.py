@@ -199,7 +199,6 @@ def CM_run(name,events,analyses,hepmcfile,CMfile,nofevents,
     Should only provide one of sigma,Kfac or lhepath, not checking if true
     Assuming sigma is in PB, else readin from Herwig in NB
     """
-    CMpath = path.CMpath
     if sigma:
         xsect = sigma
     elif lhepath:
