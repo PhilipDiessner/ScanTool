@@ -1,17 +1,16 @@
 """
-TODO: argparser to select options!!!!
+Options taken from HEPpaths
 """
 import datetime
 import time
 import os.path as osp
-import numpy as np
-from functools import partial
 import MRSSMroutines as mrr 
 from MRSSMfunctions import createSLHAinMRSSM
 import Init
 from Run import adaptive_scan
 from HEPpaths import scanname,scandir1,scandir2,dbdir,\
-    switches,parameter,para_types,scanfunc
+    switches,parameter,para_types,scanfunc,parallel,ncores,\
+    init,spheno,lhc,dm,hbhs,runonly,writeonly
 
 outdb = osp.join(dbdir,scanname+".db")
 newscanpath = (osp.join(scandir1,scanname), osp.join(scandir2,scanname))
@@ -34,34 +33,39 @@ def scan(scanpath,makedb=True):
 
 if __name__ == "__main__":
     start = time.time()
-    #method=[2]
-    #scan(scanpath,makedb=True)
-    ## TODO: argparser to select options!!!!
-    #mrr.spheno_run(scanpath, outdb, parallel=True,ncores=35)
-    # mrr.hbhs_run(scanpath, outdb, parallel=True,ncores=20)
-    # slepton_run(scanpath,outdb,parallel=False)
-    mrr.lhc_run(scanpath,outdb, parallel=True,ncores=38)
-    # mrr.dm_run(scanpath, outdb,parallel=True,ncores=15)
-
-
-    #mrr.mass_table(outdb)
-    #mrr.sul_table(outdb)
-    # #mrr.par_table(outdb)
-    # # mrr.zhmix_table(outdb)
-    #mrr.masses_write(scanpath, outdb)
-    #mrr.sulmix_write(scanpath, outdb)
-    # #mrr.par_write(scanpath, outdb)
-    # # mrr.zhmix_write(scanpath, outdb)
-    
-    # #mrr.hbhs_table(outdb)
-    # #mrr.hbhs_write(scanpath, outdb)
-    
-    #mrr.lhc_table(outdb)
-    #mrr.lhc_write(scanpath,outdb)
-    
-    # mrr.dm_table(outdb)
-    # mrr.dm_write(scanpath, outdb)
-
+    if init:
+        scan(scanpath,makedb=True)
+    if not writeonly:
+        if spheno:
+            mrr.spheno_run(scanpath, outdb, parallel=parallel,ncores=ncores)
+        if lhc:
+            mrr.lhc_run(scanpath,outdb, parallel=parallel,ncores=ncores)
+        if dm:
+            mrr.dm_run(scanpath, outdb,parallel=parallel,ncores=ncores)
+        if hbhs:
+            # not actually implemented yet again
+            mrr.hbhs_run(scanpath, outdb, parallel=parallel,ncores=ncores)
+    # first run everything, than write as e.g. lhc_run might change SPheno.spc
+    if not runonly:
+        if spheno:
+            mrr.mass_table(outdb)
+            mrr.masses_write(scanpath, outdb)
+            mrr.par_table(outdb)
+            mrr.par_write(scanpath, outdb)
+        if lhc:
+            mrr.sul_table(outdb)
+            mrr.sulmix_write(scanpath, outdb)
+            mrr.lhc_table(outdb)
+            mrr.lhc_write(scanpath,outdb)
+        if dm:
+            mrr.dm_table(outdb)
+            mrr.dm_write(scanpath, outdb)
+        if hbhs:
+            mrr.zhmix_table(outdb)
+            mrr.zhmix_write(scanpath, outdb)    
+            mrr.hbhs_table(outdb)
+            mrr.hbhs_write(scanpath, outdb)
+            
     end = time.time()
     diff = end - start
     print datetime.timedelta(seconds=diff)

@@ -18,6 +18,18 @@ parameter = ["tanb", "lamsd", "lamsu", "lamtd", "lamtu", "mud",
              ,"mq212","mq213","mq223"
              ,"mu212","mu213","mu223","md212","md213","md223","mq222","mu222","md222"]
 para_types = ["real"]*len(parameter) 
+# Run info
+parallel = True
+ncores = 39
+init =True
+spheno = True
+lhc = True
+dm = False
+hbhs = False
+runonly = False
+writeonly = False
+if runonly and writeonly:
+    raise Exception("Sure about runonly, writeonly combination?")
 
 ## functions
 inprefix = '/nfs/theoc/data/diessner/'
@@ -25,7 +37,7 @@ outprefix = '/nfs/theoc/data2/diessner/'
 homeprefix = '/afs/desy.de/user/d/diessner/'
 
 analyses = [ "atlas13TeV"]
-nofevents = 150000
+nofevents = 75000
 strongLHCstudy= True
 sfermionmix = True
 if strongLHCstudy:
