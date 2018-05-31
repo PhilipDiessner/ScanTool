@@ -163,6 +163,7 @@ def read_xsec_herwig(herwigfile):
         x = out
     except: 
         print "can't read xsec from: ", herwigfile
+        os.remove(osp.join(runpath,herwigfile[:-3] + "hepmc"))
         raise OSError
     else:
         xs = out.split("(")
@@ -376,7 +377,7 @@ if __name__ == "__main__":
     #         MGparamcard(slhafile,name,cardname, n, seed)
     # name = "4"
     # events = osp.expanduser("~/zihfast/MRSSMscans/lightsingletlhcm1m2/4/")
-    # xsect = read_xsec_herw(osp.join(events,name + ".out"))
+    #xsect = read_xsec_herw(osp.join(events,name + ".out"))
     # print xsect
     # CMparamcard(name,events, ['atlas_conf_2013_049', 'atlas_conf_2013_089', 'atlas_1402_7029', 'atlas_1403_5294'],osp.join(events,name + ".hepmc"),xsect,osp.join(events,name + "CM.dat"),100000)
     print get_Kfac("SPheno.spc.MSSM","/nfs/theoc/data/diessner/SPheno-4.0.3/","sdcpl")
