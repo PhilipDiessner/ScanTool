@@ -20,8 +20,8 @@ parameter = ["tanb", "lamsd", "lamsu", "lamtd", "lamtu", "mud",
 para_types = ["real"]*len(parameter) 
 # Run info
 parallel = True
-ncores = 39
-init =True
+ncores = 38
+init = True
 spheno = True
 lhc = True
 dm = False
