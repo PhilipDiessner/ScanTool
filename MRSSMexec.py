@@ -33,7 +33,7 @@ def scan(scanpath,makedb=True):
 
 if __name__ == "__main__":
     start = time.time()
-    if init:
+    if init and not writeonly:
         scan(scanpath,makedb=True)
     if not writeonly:
         if spheno:

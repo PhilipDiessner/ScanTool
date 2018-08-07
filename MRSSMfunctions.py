@@ -162,7 +162,7 @@ Block EXTPAR      # Input parameters
 322 {0[37]:E}     # md222Input
 Block SPhenoInput   # SPheno specific input 
   1 -1              # error level 
-  2 0               # SPA conventions  
+  2 1               # SPA conventions  
   7 {1[0]}              # Skip 2-loop Higgs corrections
   8  3              # Method used for two-loop calculation
   9  1              # Gaugeless limit used at two-loop

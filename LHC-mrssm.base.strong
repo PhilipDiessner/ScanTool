@@ -22,8 +22,8 @@ insert HPConstructor:Incoming 8 /Herwig/Particles/g
 insert HPConstructor:Incoming 9 /Herwig/Particles/b
 insert HPConstructor:Incoming 10 /Herwig/Particles/bbar
 
-insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/go
-insert HPConstructor:Outgoing 1 /Herwig/MRSSM/Particles/gobar
+#insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/go
+#insert HPConstructor:Outgoing 1 /Herwig/MRSSM/Particles/gobar
 # insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/N1
 # insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/N1bar
 # insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/N2
@@ -46,36 +46,36 @@ insert HPConstructor:Outgoing 1 /Herwig/MRSSM/Particles/gobar
 # insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/Rmc
 # insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/SOc
 # insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/POc
- insert HPConstructor:Outgoing 2 /Herwig/MRSSM/Particles/sld1
- insert HPConstructor:Outgoing 3 /Herwig/MRSSM/Particles/sld1c
- insert HPConstructor:Outgoing 4 /Herwig/MRSSM/Particles/sld2
- insert HPConstructor:Outgoing 5 /Herwig/MRSSM/Particles/sld2c
- insert HPConstructor:Outgoing 6 /Herwig/MRSSM/Particles/sld3
- insert HPConstructor:Outgoing 7 /Herwig/MRSSM/Particles/sld3c
-insert HPConstructor:Outgoing 8 /Herwig/MRSSM/Particles/srd1
-insert HPConstructor:Outgoing 9 /Herwig/MRSSM/Particles/srd1c
-insert HPConstructor:Outgoing 10 /Herwig/MRSSM/Particles/srd2
-insert HPConstructor:Outgoing 11 /Herwig/MRSSM/Particles/srd2c
-insert HPConstructor:Outgoing 12 /Herwig/MRSSM/Particles/srd3
-insert HPConstructor:Outgoing 13 /Herwig/MRSSM/Particles/srd3c
+# insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/sld1
+# insert HPConstructor:Outgoing 1 /Herwig/MRSSM/Particles/sld1c
+# insert HPConstructor:Outgoing 2 /Herwig/MRSSM/Particles/sld2
+# insert HPConstructor:Outgoing 3 /Herwig/MRSSM/Particles/sld2c
+ insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/sld3
+ insert HPConstructor:Outgoing 1 /Herwig/MRSSM/Particles/sld3c
+#insert HPConstructor:Outgoing 6 /Herwig/MRSSM/Particles/srd1
+#insert HPConstructor:Outgoing 7 /Herwig/MRSSM/Particles/srd1c
+#insert HPConstructor:Outgoing 8 /Herwig/MRSSM/Particles/srd2
+#insert HPConstructor:Outgoing 9 /Herwig/MRSSM/Particles/srd2c
+insert HPConstructor:Outgoing 2 /Herwig/MRSSM/Particles/srd3
+insert HPConstructor:Outgoing 3 /Herwig/MRSSM/Particles/srd3c
 # insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/sv1
 # insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/sv1c
 # insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/sv2
 # insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/sv2c
 # insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/sv3
 # insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/sv3c
- insert HPConstructor:Outgoing 14 /Herwig/MRSSM/Particles/slu1
- insert HPConstructor:Outgoing 15 /Herwig/MRSSM/Particles/slu1c
- insert HPConstructor:Outgoing 16 /Herwig/MRSSM/Particles/slu2
- insert HPConstructor:Outgoing 17 /Herwig/MRSSM/Particles/slu2c
-insert HPConstructor:Outgoing 18 /Herwig/MRSSM/Particles/slu3
-insert HPConstructor:Outgoing 19 /Herwig/MRSSM/Particles/slu3c
- insert HPConstructor:Outgoing 20 /Herwig/MRSSM/Particles/sru1
- insert HPConstructor:Outgoing 21 /Herwig/MRSSM/Particles/sru1c
-insert HPConstructor:Outgoing 22 /Herwig/MRSSM/Particles/sru2
-insert HPConstructor:Outgoing 23 /Herwig/MRSSM/Particles/sru2c
-insert HPConstructor:Outgoing 24 /Herwig/MRSSM/Particles/sru3
- insert HPConstructor:Outgoing 25 /Herwig/MRSSM/Particles/sru3c
+# insert HPConstructor:Outgoing 12 /Herwig/MRSSM/Particles/slu1
+# insert HPConstructor:Outgoing 13 /Herwig/MRSSM/Particles/slu1c
+# insert HPConstructor:Outgoing 14 /Herwig/MRSSM/Particles/slu2
+# insert HPConstructor:Outgoing 15 /Herwig/MRSSM/Particles/slu2c
+insert HPConstructor:Outgoing 4 /Herwig/MRSSM/Particles/slu3
+insert HPConstructor:Outgoing 5 /Herwig/MRSSM/Particles/slu3c
+# insert HPConstructor:Outgoing 18 /Herwig/MRSSM/Particles/sru1
+# insert HPConstructor:Outgoing 19 /Herwig/MRSSM/Particles/sru1c
+# insert HPConstructor:Outgoing 20 /Herwig/MRSSM/Particles/sru2
+# insert HPConstructor:Outgoing 21 /Herwig/MRSSM/Particles/sru2c
+insert HPConstructor:Outgoing 6 /Herwig/MRSSM/Particles/sru3
+ insert HPConstructor:Outgoing 7 /Herwig/MRSSM/Particles/sru3c
 # insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/se1
 # insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/se1c
 # insert HPConstructor:Outgoing 0 /Herwig/MRSSM/Particles/se2

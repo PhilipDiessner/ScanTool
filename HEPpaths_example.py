@@ -4,7 +4,7 @@ import scans
 ## exec
 scanfunc = scans.scan_init
 
-scanname = "MRSSM_msqmst_mix_moreevents"
+scanname = "MRSSM_msqmuu_bmlhc_lightmuu_3rdgen"
 scandir1 = osp.expanduser("/nfs/theoc/data2/diessner/MRSSMscans")
 scandir2 = osp.expanduser("/nfs/theoc/data2/diessner/MRSSMscans")
 # Herwig scanning allows two paths
@@ -20,7 +20,7 @@ parameter = ["tanb", "lamsd", "lamsu", "lamtd", "lamtu", "mud",
 para_types = ["real"]*len(parameter) 
 # Run info
 parallel = True
-ncores = 38
+ncores = 31
 init = True
 spheno = True
 lhc = True

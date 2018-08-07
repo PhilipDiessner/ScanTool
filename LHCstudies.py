@@ -112,7 +112,7 @@ def herwig_run(filename, runpath,n):
         
 def herwig_cleanup(filename, runpath):
     try:
-        os.remove(osp.join(runpath,filename + ".log"))
+        # os.remove(osp.join(runpath,filename + ".log"))
         # os.remove(osp.join(runpath,filename + ".out"))
         os.remove(osp.join(runpath,filename + ".hepmc"))
         os.remove(osp.join(runpath,filename + ".tex"))
