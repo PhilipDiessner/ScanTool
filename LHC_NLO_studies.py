@@ -8,8 +8,11 @@ from Run import runwrapper, partial_runwrapper, touch#, replace_line_in_file
 from lhc_nlo_cards import *
 from collections import defaultdict
 import cPickle as pickle
+import xml.etree.ElementTree as et
+
 from HEPpaths import MGpath
 
+from SLHA_extract_values import get_sq_gl_masses
 from matplotlib import gridspec
 try:
     import numpy as np
@@ -475,19 +478,28 @@ def readout():
 
 #def runcard_parser(filename):
     
-def summary_parser(filename):
-    with open(filename) as f:
-        for i,line in enumerate(f):
-            if i==9:
-                scale=line
-            if i==12:
-                pdf=line
-    scale= scale.split()
-    pdf= pdf.split()
-    result=(float(scale[0])+float(pdf[0]))/2.
-    up= np.sqrt(float(scale[2][:-1])**2+float(pdf[2][:-1])**2)
-    down= np.sqrt(float(scale[3][:-1])**2+float(pdf[3][:-1])**2)
-    return result, result*(100+up)/100,result*(100-down)/100
+def summary_parser(filename,withuncert=False):
+    if withuncert:
+        with open(filename) as f:
+            for i,line in enumerate(f):
+                if i==9:
+                    scale=line
+                if i==12:
+                    pdf=line
+        scale= scale.split()
+        pdf= pdf.split()
+        result=(float(scale[0])+float(pdf[0]))/2.
+        up= np.sqrt(float(scale[2][:-1])**2+float(pdf[2][:-1])**2)
+        down= np.sqrt(float(scale[3][:-1])**2+float(pdf[3][:-1])**2)
+        return result, result*(100+up)/100.,result*(100-down)/100.
+    else:
+        with open(filename) as f:
+            for i,line in enumerate(f):
+                if i==5:
+                    result = float(line.split()[3])
+                    numunc = float(line.split()[5])
+        return result, result+numunc,result-numunc
+
 
 def get_summary(lo_range,nlo_range,mass_range,process):
     xy=[]
@@ -503,6 +515,27 @@ def get_summary(lo_range,nlo_range,mass_range,process):
             continue
         xy.append([mass_range[i],out,nloout])
     return xy
+
+def header_parser(ffile):
+    with open(ffile, 'r') as f:
+        text=f.readlines()
+    text = filter(lambda x: x[0]!="#",text)
+    root = et.fromstringlist(text)
+    return SLHA(slhastr=root[0][2].text)
+
+def get_mgl_msq_mo_header(ffile):
+    slha = header_parser(ffile)
+    variables = [['mg','MASS',['1000021']],
+                 ['mq','MASS',['1000001']],
+                 ['mo','MASS',['3000022']]]
+    return map(slha.getvalue,variables)
+
+def loop_header():
+    maindir = "/afs/desy.de/user/d/diessner/data/madgraph/pp_qlqr/Events/"
+    runrange= xrange(1,1281)
+    for x in runrange:
+        ffile = maindir+"run_{0}/run_{0}_grid_banner.txt".format(x)
+        print x,get_mgl_msq_mo_header(ffile)
 
 def result_data():
     # data
@@ -594,10 +627,11 @@ if __name__ == "__main__":
     db = osp.join(dbdir,"sulsur_mrssm_final")
     db2 = osp.join(dbdir,"sulsur_mssm_final")
     #db = osp.join(dbdir,"ululbar_mrssm_0.001")
-    plotting(*plotpoints(db,db2))
+    #plotting(*plotpoints(db,db2))
     #plot(dbdir)
     #octetplot()
     #muplot()
     #result_data()
     #result_plot()
+    loop_header()
 # "pp_ulur_mssm" "pp_susu_mssm" "ulbar_mssm" done;

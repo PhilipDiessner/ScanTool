@@ -95,6 +95,7 @@ class Block(object):
     """
     Object representation of a BLOCK elements.  Blocks
     have a name, may have an associated Q value, and collection of Lines
+    totalordering that decay blocks come last
     """
     # sets typ of block 2 for matrix
     # 1 for parameters
@@ -232,23 +233,28 @@ class SLHA(object):
     SLHA file containing Blocks and Comment Header
     """
 
-    def __init__(self,filename=None):
+    def __init__(self,filename=None,slhastr=None):
         self.header = ''
         self.blocks = []
-        if filename:
+        if filename and slhastr:
+            raise Exception("Can not init from file and string input")
+        elif filename:
             self.filetoSLHA(filename)
+        elif slhastr:
+            self.strtoSLHA(slhastr)
 
-    def filetoSLHA(self,filename):
-        """read in SLHA textfile to fill"""
-        with open(filename) as f:
-            lines = f.readlines()
+    def strtoSLHA(self,slhastr):
+        """
+        takes the str of complete slha file
+        """
         isheader = True
         ismeta = False
         isdecay = False
         #if self.blocks:
         #    print "would override exisiting slha blocks, passing"
         #    return
-        for line in lines:
+        strlist = "\n".split(slhastr)
+        for line in strlist:
             linespl=line.split()
             if linespl==[]: # empty line
                 continue
@@ -283,6 +289,12 @@ class SLHA(object):
                     # block holds last generated block
                     block.text_entry(line[:-1]) # rm newline
         #print [[line.val for line in block.lines] for block in self.blocks]
+
+    def filetoSLHA(self,filename):
+        """read in SLHA textfile to fill"""
+        with open(filename) as f:
+            lines = f.read()
+        strtoSLHA(lines)
                     
     def tofile(self,filename):
         """
