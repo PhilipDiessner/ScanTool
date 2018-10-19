@@ -200,3 +200,22 @@ def changeSLHAwrapper(changing,par,newval):
         changeSLHA(osp.join(scandir,ident_to_path(i),str(i)+".SLHA.in"),changing,par,newval)
     return fun
 
+
+def points_multi_tables(infiles,func):
+    print func
+    result_db = osp.expanduser(infiles[0])
+    conn = sqlite3.connect(result_db)
+    c = conn.cursor()
+    c.arraysize = 100
+    out = []
+    for i, infile in enumerate(infiles[1:]):
+        attach = 'ATTACH \"'+ osp.expanduser(infile)+ '\" AS AM'+str(i) 
+        c.execute(attach)
+        print attach
+    c.execute(func)
+    for i in c:
+        out.append(i)
+    #print len(out)
+    #print out[-1]
+    conn.close()
+    return out
