@@ -4,6 +4,7 @@ import numpy as np
 import os.path as osp
 from functools import total_ordering
 import argparse
+import math
 
 def pathtoSLHAlist(leshouchesdir):
     """
@@ -179,7 +180,17 @@ class Block(object):
         line = text.split("#")
         values = line[0].split()
         comment = line[1]
-        result = float(values[-1])
+        try:
+            result = float(values[-1])
+        except ValueError as excep:
+            # MG eventheader specific...
+            if values[1][:4] =='scan':
+                ## assume there is a list  after a ':'
+                if len(values)!=2:
+                    values = [values[0]," ".join(values[1:])]
+                result = eval(values[1].split(':')[1])[0]
+            else:
+                raise excep
         ids = [int(x) for x in values[:-1]]
         if not self.idshape:
             self.idshape = len(ids)
@@ -253,7 +264,7 @@ class SLHA(object):
         #if self.blocks:
         #    print "would override exisiting slha blocks, passing"
         #    return
-        strlist = "\n".split(slhastr)
+        strlist = slhastr.split("\n")
         for line in strlist:
             linespl=line.split()
             if linespl==[]: # empty line
@@ -261,6 +272,7 @@ class SLHA(object):
             elif '#' in linespl[0]: # comment
                 if isheader:
                     self.header += line
+                    self.header +='\n'
                 else:
                     continue
             elif linespl[0].upper()=='BLOCK':
@@ -287,20 +299,20 @@ class SLHA(object):
                     continue
                 else:
                     # block holds last generated block
-                    block.text_entry(line[:-1]) # rm newline
+                    block.text_entry(line[:-1]) 
         #print [[line.val for line in block.lines] for block in self.blocks]
 
     def filetoSLHA(self,filename):
         """read in SLHA textfile to fill"""
         with open(filename) as f:
             lines = f.read()
-        strtoSLHA(lines)
+        self.strtoSLHA(lines)
                     
     def tofile(self,filename):
         """
         write to textfile
         """
-        text = self.header
+        text = self.header+"\n"
         self.sortblocks()
         for block in self.blocks:
             text += block.write_Block()

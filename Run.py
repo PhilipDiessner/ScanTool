@@ -305,14 +305,14 @@ def run_base(running_func, scanpath, db, parallel=True,method=None,ncores=20):
             try:
                 runfunc(func, method=method, parallel=parallel, ncores=ncores)
             except Exception as err:
-                print "trouble with "+ func.__name__ + " for "+ db
+                #print "trouble with "+ func.__name__ + " for "+ db
                 print err
                 pass
     else:
         try:
             runfunc(running_func, method=method, parallel=parallel, ncores=ncores)
         except Exception as err:
-            print "trouble with "+ running_func.__name__+ " for "+ db
+            #print "trouble with "+ running_func.__name__+ " for "+ db
             print err
             pass
             

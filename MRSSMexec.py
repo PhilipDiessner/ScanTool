@@ -39,6 +39,7 @@ if __name__ == "__main__":
         if spheno:
             mrr.spheno_run(scanpath, outdb, parallel=parallel,ncores=ncores)
         if lhc:
+            print "LHC run"
             mrr.lhc_run(scanpath,outdb, parallel=parallel,ncores=ncores)
         if dm:
             mrr.dm_run(scanpath, outdb,parallel=parallel,ncores=ncores)

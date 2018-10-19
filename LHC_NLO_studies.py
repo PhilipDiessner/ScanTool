@@ -1,18 +1,20 @@
 import os.path as osp
 import subprocess as spr
 import os
+from math import log10, floor
 from sqlite3 import OperationalError
-from Init import points, make_db,register_points
 import string
-from Run import runwrapper, partial_runwrapper, touch#, replace_line_in_file
-from lhc_nlo_cards import *
 from collections import defaultdict
 import cPickle as pickle
 import xml.etree.ElementTree as et
+import cProfile
+import numpy as np
 
+from Init import points, make_db,register_points
+from Run import runwrapper, partial_runwrapper, touch#, replace_line_in_file
+from lhc_nlo_cards import *
 from HEPpaths import MGpath
-
-from SLHA_extract_values import get_sq_gl_masses
+from SLHA_extract_values import get_sq_gl_masses,SLHA
 from matplotlib import gridspec
 try:
     import numpy as np
@@ -31,7 +33,8 @@ try:
     plt.rcParams.update(params) 
 except ImportError:
     import math as np
-
+def round_to_1(x):
+    return round(x, -int(floor(log10(abs(x)))))
 
 def make_arrs(xy,z,extent,inter=70j,interpol='linear'):
     xs, ys = np.mgrid[extent[0]:extent[1]:inter, extent[2]:extent[3]:inter]
@@ -523,19 +526,48 @@ def header_parser(ffile):
     root = et.fromstringlist(text)
     return SLHA(slhastr=root[0][2].text)
 
-def get_mgl_msq_mo_header(ffile):
+def get_msq_mgl_mo_header(ffile):
     slha = header_parser(ffile)
-    variables = [['mg','MASS',['1000021']],
-                 ['mq','MASS',['1000001']],
-                 ['mo','MASS',['3000022']]]
-    return map(slha.getvalue,variables)
+    variables = [
+        ['mq','MASS',['1000001']],
+        ['mg','MASS',['1000021']],
+        ['mo','MASS',['3000022']]]
+    res = map(slha.getvalue,variables)
+    res[-1]=round_to_1(res[-1])
+    return res
+
 
 def loop_header():
-    maindir = "/afs/desy.de/user/d/diessner/data/madgraph/pp_qlqr/Events/"
-    runrange= xrange(1,1281)
-    for x in runrange:
-        ffile = maindir+"run_{0}/run_{0}_grid_banner.txt".format(x)
-        print x,get_mgl_msq_mo_header(ffile)
+    maindir = "/afs/desy.de/user/d/diessner/data/madgraph/pp_qlql_all/Events/"
+    db = "/afs/desy.de/user/d/diessner/theorie/pointdbs/NLO_xsec_qlql.db"
+    runrange= xrange(17,1297)
+    lorange = xrange(1537,1793)
+    result=[]
+    parameters = zip(["msq","mglu","mo","xsec","xsecup","xsecdown"],['real']*6)
+    # for x in runrange:
+    #     if x <10:
+    #         ffile = maindir+"run_0{0}/run_0{0}_grid_banner.txt".format(x)
+    #         sfile = maindir+"run_0{0}/summary.txt".format(x)
+    #     else:
+    #         ffile = maindir+"run_{0}/run_{0}_grid_banner.txt".format(x)
+    #         sfile = maindir+"run_{0}/summary.txt".format(x)
+    #     result.append(get_msq_mgl_mo_header(ffile)+list(summary_parser(sfile,withuncert=False)))
+    # #print np.asarray(result)[:,1].sum(),np.asarray(result)[:,0].sum()
+    # for mo in 1000,3000,10000,30000,100000:
+    #     res=filter(lambda z: z[2]==mo,result)
+    #     res = [[i]+z for i,z in enumerate(res)]
+    #     make_db(db,parameters,"t"+str(mo),res)
+    # result=[]
+    for x in lorange:
+        if x <10:
+            ffile = maindir+"run_0{0}_LO/run_0{0}_LO_grid_banner.txt".format(x)
+            sfile = maindir+"run_0{0}_LO/summary.txt".format(x)
+        else:
+            ffile = maindir+"run_{0}_LO/run_{0}_LO_grid_banner.txt".format(x)
+            sfile = maindir+"run_{0}_LO/summary.txt".format(x)
+        result.append(get_msq_mgl_mo_header(ffile)+list(summary_parser(sfile,withuncert=False)))
+    res = [[i]+z for i,z in enumerate(result)]
+    make_db(db,parameters,"lo",res)
 
 def result_data():
     # data

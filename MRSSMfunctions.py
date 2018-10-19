@@ -9,7 +9,7 @@ import LHCstudies as lhc
 import SLHA_extract_values as SLHA
 from HEPpaths import inprefix,outprefix,homeprefix,\
     analyses,nofevents,Hconf_process,SPhenodir,Htemplate,\
-    mg_process,HBdir,HSdir,uncerfile,dmexecut,sfermionmix
+    mg_process,HBdir,HSdir,uncerfile,dmexecut,sfermionmix,mwos
 
 
 def createSLHAinMRSSMfull(parameters,switches):
@@ -201,8 +201,100 @@ Block SPhenoInput   # SPheno specific input
 """.format(parameters,switches)
 
 
+def createSLHAinMRSSMmt(parameters,switches):
+    """
+    writing input spectrum of MRSSM for SPheno
+    switches - flags for SPhenoInput, look for {0[i]} in string
+    values - actual scan values, look for {1[j]:E} in string
+    filename - name of file
+    filedir - directory to put the file
+    """
+    return """Block MODSEL      #  
+1 1              #  1/0: High/low scale input 
+2 1              # Boundary Condition  
+6 0              # Generation Mixing 
+Block SMINPUTS    # Standard Model inputs 
+    1 1.281339E+02   # alpha^-1 (MZ) SM MSbar
+    2 1.1663787E-05    # G_F,Fermi constant 
+    3 1.181000E-01    # alpha_s(MZ) SM MSbar 
+    4 9.118760E+01    # Z-boson pole mass 
+    5 4.80000E+00    # m_b(mb) SM MSbar 
+    6 {0[26]:E}    # m_top(pole) 
+    7 1.776860E+00    # m_tau(pole) 
+Block MINPAR      # Input parameters 
+3  {0[0]:E}     # TanBeta
+Block EXTPAR      # Input parameters 
+1 {0[1]:E}     # LSDinput
+2 {0[2]:E}     # LSUinput
+3 {0[3]:E}     # LTDinput
+4 {0[4]:E}     # LTUinput
+5 {0[5]:E}     # MuDinput
+6 {0[6]:E}     # MuUinput
+7 {0[7]:E}     # MA2input
+8 {0[8]:E}     # mq2input
+9 {0[9]:E}     # mq332input
+10 {0[10]:E}     # ml2input
+11 {0[11]:E}     # ml332input
+12 {0[12]:E}     # mu2input
+13 {0[13]:E}     # mu332input
+14 {0[14]:E}     # md2input
+15 {0[15]:E}     # md332input
+16 {0[16]:E}     # me2input
+17 {0[17]:E}     # me332input
+18 {0[18]:E}     # mRu2input
+19 {0[19]:E}     # mRd2input
+20 {0[20]:E}     # mO2input
+21 {0[21]:E}     # M1input
+22 {0[22]:E}     # M2input
+23 {0[23]:E}     # M3input
+65 {0[24]:E}     # mS2Input
+66 {0[25]:E}     # mT2Input
+Block SPhenoInput   # SPheno specific input 
+  1 -1              # error level 
+  2 0               # SPA conventions  
+  7 {1[0]}              # Skip 2-loop Higgs corrections
+  8  3              # Method used for two-loop calculation
+  9  1              # Gaugeless limit used at two-loop
+ 10  0              # safe-mode used at two-loop
+ 11 {1[1]}              # calculate branching ratios 
+ 13 {1[1]}              # include 3-Body decays 
+ 12 1.000E-04       # write only branching ratios larger than this value 
+ 16 0               # One-loop decays
+ 31 10000            # fixed GUT scale (-1: dynamical GUT scale) 
+ 32 0               # Strict unification 
+ 34 1.000E-04       # Precision of mass calculation 
+ 35 40              # Maximal number of iterations
+ 37 1               # Set Yukawa scheme  
+ 38 2               # 1- or 2-Loop RGEs 
+ 50 0               # Majorana phases: use only positive masses 
+ 51 0               # Write Output in CKM basis 
+ 52 1              # Write spectrum in case of tachyonic states 
+ 54 1              # stop if iteration doesn't converge
+ 55 {1[2]}             # Calculate one loop masses 
+ 57 {1[3]}               # Calculate low energy constraints 
+ 60 0               # Include possible, kinetic mixing 
+ 65 1               # Solution tadpole equation  
+ 66 0               # Two-Scale Matching
+ 67 0               # effective Higgs mass calculation
+ 75 0               # Write WHIZARD files 
+ 76 {1[4]}               # Write HiggsBounds file 
+ 77 0               # Output for MicrOmegas (running masses for light quarks; real mixing matrices) 
+ 78 1               # Output for MadGraph (writes also vanishing blocks)
+ 86 0.              # Maximal width to be counted as invisible in Higgs decays; -1: only LSP 
+510 0.              # Write tree level values for tadpole solutions 
+515 0               # Write parameter values at GUT scale 
+520 0               # Write effective Higgs couplings (HiggsBounds blocks) 
+521 0
+525 {1[4]}              # Write loop contributions to diphoton decay of Higgs 
+530 {1[5]}              # Write Blocks for Vevacious 
+""".format(parameters,switches)
+
+
+
 if sfermionmix:
     createSLHAinMRSSM = createSLHAinMRSSMmix
+elif mwos:
+    createSLHAinMRSSM = createSLHAinMRSSMmt
 else:
     createSLHAinMRSSM = createSLHAinMRSSMfull
 
@@ -269,6 +361,7 @@ masses= [
     ['mrh2','MASS', ['402']],
     ['mrpm1','MASS', ['403']],
     ['mrpm2','MASS', ['404']],
+    ['mt','MASS',['6']]
 ]
 
 mixmatrix = [["zh11",'SCALARMIX',['1','1']],["zh12",'SCALARMIX',['1','2']],
@@ -468,14 +561,8 @@ def lhc_study(i,scandir, cm = True):
     lhc.full_herwig(slhafile,name,hevents,Hcardname,Hconfigtmp,Hconfigbase,
                    Htemplate, hepmcpath, nofevents)
     if cm:
-        #sigma,Kfac = MRSSM_get_Kfac("SPheno.spc.MRSSM", cmevents, "sdcpl")
-        #if sigma>0:
-        #    lhc.CM_run(name,cmevents,analyses,hepmcpath,CMfile,nofevents,
-        #               sigma=sigma,cleanup=False)
-        #else:
         lhc.CM_run(name,cmevents,analyses,hepmcpath,CMfile,
                    nofevents,cleanup=True)
-        #print sigma
 
 def rerun_CM(i,scandir):
     if type(scandir) in (tuple, list):
