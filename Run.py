@@ -94,9 +94,9 @@ def partial_runwrapper(toexecute,i,scandir):
         out = spr.check_output(execute,
                                stderr=spr.STDOUT, cwd=cwd)
         return out
-    except spr.CalledProcessError:
+    except spr.CalledProcessError as E:
         print "run: s.t. wrong for " + i
-        return "Error"
+        raise E
     except KeyboardInterrupt:
         raise KeyboardInterruptError()
         
@@ -111,9 +111,9 @@ def runwrapper(toexecute,cwd):
         out = spr.check_output(execute,
                                stderr=spr.STDOUT, cwd=cwd)
         return out
-    except spr.CalledProcessError:
+    except spr.CalledProcessError as E:
         print "run: s.t. wrong for " + ' '.join(toexecute)
-        return "Error"
+        raise E
     except KeyboardInterrupt:
         raise KeyboardInterruptError()
 
