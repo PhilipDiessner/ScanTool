@@ -101,6 +101,7 @@ def MSSMKfac(msq,mgl,process = ["gg","ss","sb","sg"]):
 
 def MRSSMKfacgen(process = ["gg","ss","sb","sg"]):
     tabs = [ "t1000","t3000", "t10000","t30000", "t100000","lo" ]
+    tabs = ["t10000","lo"]
     ssgr = GridDB(ss,tabs)
     sbgr = GridDB(sb,tabs)
     
@@ -108,34 +109,80 @@ def MRSSMKfacgen(process = ["gg","ss","sb","sg"]):
         nlo = np.zeros(len(tabs))
         for pro in process:
             if pro in ["gg","sg"]:
-                nlloutput=runwrapper([NLL, pro,"mstw",str(msq),str(mgl)],NLLpath)
+                if msq >3000:
+                    msqg = 3000
+                else:
+                    msqg= msq
+                if mgl >3000:
+                    mglg = 3000
+                else:
+                    mglg = mgl
+                nlloutput=runwrapper([NLL, pro,"mstw",str(msqg),str(mglg)],NLLpath)
                 nlo[-1] += float(nlloutput.split()[-11]) # LO
                 nlo[:-1] += float(nlloutput.split()[-10]) #NLO
             elif pro == "ss":
-                temp = np.asarray([x[0] for x in ssgr.xsecs(msq,mgl)])
+                #print msq,mgl, ssgr.xsecs(msq,mgl)
+                temp = np.asarray([x for x in ssgr.xsecs(msq,mgl)])
                 #print temp
                 nlo += temp
             elif pro == "sb":
-                temp = np.asarray([x[0] for x in sbgr.xsecs(msq,mgl)])
+                #print msq,mgl, sbgr.xsecs(msq,mgl)
+                temp = np.asarray([x for x in sbgr.xsecs(msq,mgl)])
                 #print temp
                 nlo += temp
+        
         lo = nlo[-1]
         nlo = nlo[:-1]
         return [x/lo for x in nlo]
     
     return MRSSMKfac
-
-def NNLLKfac(msq,mgl,process = ["gg","ss","sb","sg"]): 
     
+def MRSSMKfacsgluon(msq,mgl,process = ["ss","sb"]): 
+    tabs = [ "t1000", "t100000", "t10000" ]
+    ssgr = GridDB(ss,tabs)
+    sbgr = GridDB(sb,tabs)
+    nlo = np.zeros(len(tabs))
+    for pro in process:
+        
+        if pro == "ss":
+            temp = np.asarray([x for x in ssgr.xsecs(msq,mgl)])
+            #print temp
+            nlo += temp
+        elif pro == "sb":
+            temp = np.asarray([x for x in sbgr.xsecs(msq,mgl)])
+            #print temp
+            nlo += temp
+    lo = nlo[-1]
+    nlo = nlo[:-1]
+    return [x/lo for x in nlo]
+    
+    
+def NNLLKfac(msq,mgl,process = ["gg","ss","sb","sg"]): 
     nlo = 0
     nnl = 0
+    pdf = 0
+    if msq >3000:
+        msq = 3000
+    if mgl >3000:
+        mgl = 3000
     for pro in process:
-        nlloutput=runwrapper([NNLL, pro,str(msq),str(mgl)],NNLLpath)  
-        nnl += float(nlloutput.split()[-6])
-        nlo += float(nlloutput.split()[-7])
+        nlloutput=runwrapper([NNLL, pro,str(msq),str(mgl)],NNLLpath).split("\n")[-2].split()
+        #print nlloutput
+        nnl += float(nlloutput[3])
+        nlo += float(nlloutput[2])
+        pdf += float(nlloutput[2])*float(nlloutput[6])/100.
+    pdf = pdf/nlo
     return nnl/nlo
 
-
+def MRSSMnloanduncert(lo,msq,mgl,process = ["gg","ss","sb","sg"],MRSSMKfac=None):
+    sgluon = MRSSMKfacsgluon(msq,mgl,process)
+    nll = NNLLKfac(msq,mgl,process)
+    nlok = lo*MRSSMKfac(msq,mgl,process)[0]
+    up = np.sqrt((sgluon[-1]-1)**2+(nll-1)**2)
+    down = np.sqrt((sgluon[0]-1)**2+(nll-1)**2)
+    #print nlok,nlok*(1+up),nlok/(1+down)
+    return [nlok,nlok*(1+up),nlok/(1+down)]
+    
 if __name__ == "__main__":
     #print(points(db,".tables"))
     #print MSSMKfac(1100,500)
